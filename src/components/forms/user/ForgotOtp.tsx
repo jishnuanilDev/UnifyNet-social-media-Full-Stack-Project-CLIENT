@@ -134,7 +134,7 @@ const ForgotOtp: React.FC<ForgotOtpProps> = ({ email, setResetStep }) => {
                       onKeyDown={(e) => handleKeyDown(e, index)}
                       key={index}
                       type="text"
-                      className="w-14 h-14 text-center text-2xl font-extrabold text-white bg-lightBlack border border-transparent hover:border-slate-800 appearance-none rounded p-4 outline-none focus:bg-purple-900/40 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                      className=" w-14 h-14 text-center text-2xl font-extrabold text-white bg-lightBlack border border-transparent hover:border-slate-800 appearance-none rounded p-4 outline-none focus:bg-purple-900/40 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                       pattern="\d*"
                       maxLength={1}
                       inputMode="numeric"

@@ -83,7 +83,7 @@ const ChangePassword: React.FC = () => {
                   onClick={handleChange}
                   onChange={(e) => setCurrentPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className="w-[500px] h-8 rounded-full border-0 p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Enter current password"
                 />
@@ -117,7 +117,7 @@ const ChangePassword: React.FC = () => {
                   onClick={handleChange}
                   onChange={(e) => setNewPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30 inputError"
+                  className="w-[500px] h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30 inputError"
                   id="username"
                   placeholder="Enter new password"
                 />
@@ -127,7 +127,7 @@ const ChangePassword: React.FC = () => {
                   onClick={handleChange}
                   onChange={(e) => setConfirmNewPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className="w-[500px] h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Confirm new password"
                 />

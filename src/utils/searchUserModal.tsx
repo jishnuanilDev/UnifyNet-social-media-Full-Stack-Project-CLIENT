@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { headers } from "next/headers";
 import axios from "axios";
 import { FaLocationArrow } from "react-icons/fa6";
-import Avatar from "@mui/material/Avatar";
+const Avatar = dynamic(() => import('@mui/material/Avatar'));
 import { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 

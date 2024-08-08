@@ -1,54 +1,56 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import { MdVerified } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import AlertDialog from "@/utils/paymentConfirm";
+import PricingModal from "./Pricingcard";
 
 interface User {
-  _id: string;
-  fullname: string;
+  id: string;
+  fullName: string;
   username: string;
   bio: string;
   email: string;
+  phone: number;
+  isPremium: boolean;
   // Add other properties as needed
 }
-interface IProfileCardProps{
-  user: User | null;
-  profilePic:string|null;
-}
-const ProfileCard: React.FC<IProfileCardProps> = ({user,profilePic}) => {
-
+const ProfileCard: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const [cardOpen, setCardOpen] = React.useState(false);
 
   const router = useRouter();
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     try {
-  //       const userToken = Cookies.get("userToken");
-  //       if (!userToken) {
-  //         router.replace("/sign-in");
-  //       }
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const userToken = localStorage.getItem("userToken");
+        if (!userToken) {
+          router.replace("/");
+        }
 
-  //       const result = await axios.get("http://localhost:5000/profile", {
-  //         headers: {
-  //           Authorization: userToken,
-  //         },
-  //       });
+        const result = await axios.get("http://localhost:5000/profile", {
+          headers: {
+            Authorization: userToken,
+          },
+        });
 
-  //       if (result) {
-  //         console.log("profile fetched:", result.data.user);
-  //         setUser(result.data.user);
-  //         setProfilePic(result.data.user.profilePic);
-  //       }
-  //     } catch (err) {
-  //       console.error("Error fetching user profile", err);
-  //     }
-  //   };
-  //   fetchProfile();
-  // }, []);
+        if (result) {
+          console.log("profile fetched:", result.data.user);
+          setUser(result.data.user);
+          setProfilePic(result.data.user.profilePic);
+        }
+      } catch (err) {
+        console.error("Error fetching user profile", err);
+      }
+    };
+    fetchProfile();
+  }, []);
   return (
     <>
-    
       <div className="bg-gradient-to-b from-fuchsia-800/20 to-fuchsia-950/0 md:h-80 h-44  flex md:mr-10 mr-3 md:mt-7 mt-4 rounded-xl  ">
         <div className="h-full">
           <div className="flex justify-center md:mt-14 mt-6 md:ml-14 ml-6">
@@ -71,7 +73,16 @@ const ProfileCard: React.FC<IProfileCardProps> = ({user,profilePic}) => {
         </div>
         <div className="md:ml-20 md:mt-14 mt-1 font-sm ">
           <div className="flex md:gap-7 ">
-            <span className=" md:text-xl font-bold">{user?.username}</span>
+            {user?.isPremium ? (
+              <div className="flex gap-2">
+                <span className="mt-0.5">
+                  <MdVerified style={{color:'#4d6afa',fontSize:'20px'}}/>
+                </span>
+                <span className=" md:text-xl font-bold">{user?.username}</span>
+              </div>
+            ) : (
+              <span className=" md:text-xl font-bold">{user?.username}</span>
+            )}
 
             <span
               className=" text-sm  h-5 ml-10"
@@ -89,6 +100,40 @@ const ProfileCard: React.FC<IProfileCardProps> = ({user,profilePic}) => {
                 Change Password
               </button>
             </span>
+
+            <span className="text-sm  h-5">
+              {user?.isPremium ? (
+                <button className="bg-gradient-to-r from-yellow-300 to-yellow-600 px-4 py-1 rounded-full font-semibold">
+                  <div className="flex gap-1">
+                    <span className="mt-0.5">
+                      {" "}
+                      <MdVerified />
+                    </span>
+                    <span> Cancel premium</span>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  className="bg-gradient-to-r from-yellow-300 to-yellow-600 px-4 py-1 rounded-full font-semibold"
+                  onClick={() => setOpen(true)}
+                >
+                  <div className="flex gap-1">
+                    <span className="mt-0.5">
+                      {" "}
+                      <MdVerified />
+                    </span>
+                    <span> Activate premium</span>
+                  </div>
+                </button>
+              )}
+            </span>
+            <PricingModal
+              username={user?.username}
+              phone={user?.phone}
+              email={user?.email}
+              cardOpen={cardOpen}
+              setCardOpen={setCardOpen}
+            />
           </div>
 
           <div className="flex gap-7 mt-10">
@@ -106,9 +151,17 @@ const ProfileCard: React.FC<IProfileCardProps> = ({user,profilePic}) => {
               412 following
             </span>
           </div>
+          <div className="flex justify-center">
+            {" "}
+            <AlertDialog
+              setCardOpen={setCardOpen}
+              open={open}
+              setOpen={setOpen}
+            />
+          </div>
           <div className="flex gap-7 mt-5">
             <span className=" text-sm font-thin text-white/60 ">
-              {user?.fullname}
+              {user?.fullName}
             </span>
           </div>
           <div className="flex gap-7 mt-5">
@@ -118,7 +171,6 @@ const ProfileCard: React.FC<IProfileCardProps> = ({user,profilePic}) => {
       </div>
 
       <hr className="w-48 h-1 mx-auto my-4  bg-gray-100 border-0 rounded md:my-10 dark:bg-lightBlack" />
-  
     </>
   );
 };

@@ -87,7 +87,7 @@ const ForgotPassword: React.FC = () => {
                     onClick={handleChange}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full h-12 rounded-md p-2  bg-zinc-800  "
+                    className=" border-0 w-full h-12 rounded-md p-2  bg-zinc-800  "
                     type="email"
                     id="email"
                     placeholder="Email"

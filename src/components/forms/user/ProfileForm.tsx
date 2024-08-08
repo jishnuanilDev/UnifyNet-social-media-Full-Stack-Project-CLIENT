@@ -106,7 +106,7 @@ const ProfileForm: React.FC = () => {
                  onClick={handleChange}
                   onChange={(e) => setFullname(e.target.value)}
                   type="text"
-                  className="md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className=" border-0 md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Fullname"
                   value={fullname}
@@ -117,7 +117,7 @@ const ProfileForm: React.FC = () => {
                  onClick={handleChange}
                   onChange={(e) => setUsername(e.target.value)}
                   type="text"
-                  className="md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className=" border-0 md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Username"
                   value={username}
@@ -128,7 +128,7 @@ const ProfileForm: React.FC = () => {
                  onClick={handleChange}
                   onChange={(e) => setPhone(e.target.value)}
                   type="number"
-                  className="md:w-[500px]  w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className=" border-0 md:w-[500px]  w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Phone"
                   value={phone}
@@ -139,7 +139,7 @@ const ProfileForm: React.FC = () => {
                  onClick={handleChange}
                   onChange={(e) => setBio(e.target.value)}
                   type="text"
-                  className="md:w-[500px] w-72  h-20 rounded-lg p-3 bg-midBlack text-[13px] text-gray-300 placeholder:text-white/30"
+                  className="border-0 md:w-[500px] w-72  h-20 rounded-lg p-3 bg-midBlack text-[13px] text-gray-300 placeholder:text-white/30"
                   id="username"
                   placeholder="Bio"
                   value={bio}
@@ -150,7 +150,7 @@ const ProfileForm: React.FC = () => {
                  onClick={handleChange}
                   onChange={(e) => setGender(e.target.value)}
                   type="text"
-                  className="md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className="border-0 md:w-[500px] w-72  h-8 rounded-full p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Gender"
                   value={gender}

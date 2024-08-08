@@ -9,6 +9,13 @@ const PostBox = dynamic(() => import("@/components/shared/user/PostBox"), {
 const UserPostModal = dynamic(() => import("@/utils/UserPostModal"), {
   loading: () => <p>Loading Post Modal...</p>, // Optional loading component
 });
+interface IUser {
+  _id: string;
+  fullname: string;
+  username: string;
+  bio: string;
+  email: string;
+}
 interface Ipost {
   _id: string;
   caption: string;
@@ -27,58 +34,51 @@ interface Ipost {
 
   likes: string[];
 }
-
-interface IUser {
+interface User {
   _id: string;
   fullname: string;
   username: string;
   bio: string;
   email: string;
+  followers: [
+    {
+      user: IUser;
+    }
+  ];
+  following: [
+    {
+      user: IUser;
+    }
+  ];
+  posts: Ipost[];
   // Add other properties as needed
 }
-interface IProfileCardProps {
-  user: IUser | null;
+interface FriendProps {
+  user: User | null;
 }
-const UserPosts: React.FC<IProfileCardProps> = ({ user }) => {
-  const [userPosts, setUserPosts] = useState<Ipost[]>([]);
+const FriendProfilePosts: React.FC<FriendProps> = ({ user }) => {
+  console.log("user in friendProfilePosts", user);
   const [update, setUpdate] = useState(false);
-  useEffect(() => {
-    const fetchUserPosts = async () => {
-      try {
-        const userToken = localStorage.getItem("userToken");
-        const response = await axios.get("http://localhost:5000/user-posts", {
-          headers: {
-            Authorization: userToken,
-          },
-        });
-        if (response) {
-          console.log("user fetched posts response", response.data.posts);
 
-          setUserPosts(response.data.posts);
-        }
-      } catch (err) {}
-    };
-    fetchUserPosts();
-  }, []);
   return (
     <div>
-      <div className=" grid grid-cols-1 md:grid-cols-3 gap-3">
-        { 
-          userPosts.map((userPost, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 ">
+        {
+          user?.posts.map((post, index) => (
             <div
               className="w-80 h-80 bg-gray-300 rounded-lg"
               onClick={() => setUpdate(true)}
             >
               <UserPostModal
-                postImg={userPost.image.url}
+                postImg={post.image.url}
                 user={user}
-                userPost={userPost}
+                userPost={post}
                 update={update}
                 setUpdate={setUpdate}
               />
               <img
                 className="w-full h-full rounded-lg object-cover"
-                src={userPost.image.url}
+                src={post.image.url}
                 alt="img"
               />
             </div>
@@ -86,7 +86,7 @@ const UserPosts: React.FC<IProfileCardProps> = ({ user }) => {
        }
       </div>
       {
-        userPosts.length===0?(
+        user?.posts.length===0?(
           <div className="flex"><h1 className="font-mono  text-xl text-white/80">No Post Available</h1></div>
         ):''
       }
@@ -94,4 +94,4 @@ const UserPosts: React.FC<IProfileCardProps> = ({ user }) => {
   );
 };
 
-export default UserPosts;
+export default FriendProfilePosts;

@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 const LoginForm: React.FC = () => {
   const router = useRouter();
   useEffect(() => {
-    const token = Cookies.get("userToken");
+    const token = localStorage.getItem("userToken");
     console.log("token verifying");
     if (token) {
       router.replace("/");
@@ -83,7 +83,7 @@ const LoginForm: React.FC = () => {
                   onClick={handleChange}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-12 rounded-md p-2  bg-zinc-800  "
+                  className="w-full h-12 rounded-md p-2  bg-zinc-800 border-0 "
                   type="email"
                   id="email"
                   placeholder="Email"
@@ -95,7 +95,7 @@ const LoginForm: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
-                  className="w-full h-12 rounded-md p-2   bg-zinc-800  "
+                  className="w-full h-12 rounded-md p-2   bg-zinc-800  border-0"
                   id="password"
                   placeholder="Password"
                 />

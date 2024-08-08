@@ -133,7 +133,7 @@ export default function EditProfile() {
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-0"
                 />
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function EditProfile() {
               <input
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                className="w-[500px] h-10 rounded-full p-3 bg-black text-[13px] placeholder-white/30  "
+                className="w-[500px] h-10 rounded-full border-0 p-3 bg-black text-[13px] placeholder-white/30  "
                 id="username"
                 placeholder="eg: john_doe123"
                 value={username}
@@ -171,7 +171,7 @@ export default function EditProfile() {
               <input
                 onChange={(e) => setFullname(e.target.value)}
                 type="text"
-                className="w-[500px] h-10 rounded-full p-3 bg-black text-[13px] placeholder-white/30"
+                className="w-[500px] border-0 h-10 rounded-full p-3 bg-black text-[13px] placeholder-white/30"
                 id="username"
                 placeholder="eg: John Doe"
                 value={fullname}

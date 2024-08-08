@@ -27,6 +27,7 @@ interface Ipost {
       comment: string;
     }
   ];
+  user:IUser
 
   likes: string[];
 }

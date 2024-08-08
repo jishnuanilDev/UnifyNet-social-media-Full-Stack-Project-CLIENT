@@ -85,7 +85,7 @@ const ProfileSidebar: React.FC = () => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={()=>router.push('/create-post')}>
+          <div className="mt-9  flex cursor-pointer">
             <span className="">
               <AiFillPlusCircle style={{ fontSize: "26px", color: "d55adb" }} />
             </span>

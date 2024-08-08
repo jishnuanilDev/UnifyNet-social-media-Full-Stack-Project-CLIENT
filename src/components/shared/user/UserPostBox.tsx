@@ -40,6 +40,7 @@ interface Ipost {
       comment: string;
     }
   ];
+  user:IUser;
   postId: string;
   likes: string[];
 }
@@ -175,7 +176,7 @@ const UserPostBox: React.FC<PostProps> = ({
 
           <div className="flex  mt-3 ml-5">
             <span className="md:text-sm text-[10px] font-sans font-medium">
-              {user?.username}
+            {user?.username}
             </span>
             <span className="md:text-sm text-[10px] font-sans md:ml-2">
               .{" "}

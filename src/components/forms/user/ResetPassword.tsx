@@ -98,7 +98,7 @@ const ResetPasswordForm: React.FC = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   type="password"
-                  className="w-full h-12 rounded-md p-2   bg-zinc-800"
+                  className="w-full h-12 rounded-md p-2  border-0  bg-zinc-800"
                   id="password"
                   placeholder="Password"
                 />
@@ -109,7 +109,7 @@ const ResetPasswordForm: React.FC = () => {
                   value={confirmNewPassword}
                   onChange={(e) => setConfirmNewPassword(e.target.value)}
                   type="password"
-                  className="w-full h-12 rounded-md p-2   bg-zinc-800"
+                  className="w-full h-12 rounded-md p-2 border-0  bg-zinc-800"
                   id="confirmPassword"
                   placeholder="Confirm Password"
                 />

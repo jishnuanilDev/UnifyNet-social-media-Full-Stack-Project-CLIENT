@@ -3,7 +3,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import axios from "axios";
 
 
@@ -19,7 +18,9 @@ const NewPostModal = dynamic(() => import("@/utils/NewPostModal"), {
 });
 const LeftSidebar = dynamic(
   () => import("@/components/shared/user/LeftSidebar"),
-  { ssr: false }
+  {
+    loading: () => <p>Loading...</p>, // Optional loading component
+  }
 );
 const SampleModal = dynamic(() => import("@/utils/SampleModal"), {
   ssr: false,
@@ -82,7 +83,6 @@ function Home() {
       try {
         const result = await axios.get("http://localhost:5000/get-posts");
         if (result) {
-          console.log("getPosts...", result.data.posts);
           setPosts(result.data.posts);
         }
       } catch (err) {
@@ -100,7 +100,7 @@ function Home() {
         {user ? <Topbar user={user} /> : <Topbar />}
         <NewPostModal postStep={postStep} setPostStep={setPostStep} />
 
-        <main className="ml-14 grid grid-cols-1 h-screen  overflow-y-auto overflow-x-hidden ">
+        <main className="ml-14 grid grid-cols-1 h-screen scrollbar-hide  overflow-y-auto overflow-x-hidden ">
           {posts && posts.length >= 1 ? (
             posts.map((post, index) => (
               <PostBox

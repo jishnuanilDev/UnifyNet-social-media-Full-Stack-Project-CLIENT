@@ -72,7 +72,7 @@ const AdminLoginForm: React.FC = () => {
                   onClick={handleChange}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-12 rounded-md p-2  bg-zinc-800  "
+                  className="w-full h-12 rounded-md p-2 border-0 bg-zinc-800  "
                   type="email"
                   id="email"
                   placeholder="Email"
@@ -84,7 +84,7 @@ const AdminLoginForm: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
-                  className="w-full h-12 rounded-md p-2   bg-zinc-800  "
+                  className="w-full h-12 rounded-md p-2  border-0 bg-zinc-800  "
                   id="password"
                   placeholder="Password"
                 />

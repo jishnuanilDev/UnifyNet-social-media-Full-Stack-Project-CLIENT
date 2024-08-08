@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import "@/styles/globals.css";
 import { IoMdClose } from "react-icons/io";
-import Avatar from "@mui/material/Avatar";
+import dynamic from 'next/dynamic';
+const Avatar = dynamic(() => import('@mui/material/Avatar'));
 interface IUser {
   _id: string;
   fullname: string;
@@ -40,6 +41,7 @@ const CommentModal: React.FC<ICommentModalProps> = ({
   setCommentModal,
   post,
 }) => {
+  console.log('post in comment modal',post);
   if (commentModal) {
     return (
       <div className="w-[500px] relative ">
@@ -86,9 +88,9 @@ const CommentModal: React.FC<ICommentModalProps> = ({
                       />
                     </div>
                     <div className="text-[12px] font-semibold">
-                      {comment.user.username}{" "}
+                      {comment.user.username}
                     </div>
-                    <div className="text-[13px] max-w-96 flex-grow font-serif ml-4 ">
+                    <div className="text-[13px] max-w-96 flex-grow font-sans  ml-4 ">
                       {comment.comment}
                     </div>
                     {/* <div className="text-end ml-auto text-[12px]">Like</div> */}

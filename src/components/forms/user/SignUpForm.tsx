@@ -24,12 +24,13 @@ const SignUpForm: React.FC = () => {
     strongPassword?: string;
   }>({});
   const [step, setStep] = useState<number>(1);
-  // useEffect(() => {
-  //   console.log("token verifying");
-  //   if (token) {
-  //     router.replace("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    console.log("token verifying");
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      router.replace("/");
+    }
+  }, []);
   const validate = () => {
     const newErrors: typeof errors = {};
     if (!fullname && !email && !password && !confirmPassword)
@@ -121,7 +122,7 @@ const SignUpForm: React.FC = () => {
                     onClick={handleChange}
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
-                    className="w-full h-12 rounded-md p-2  bg-zinc-800"
+                    className="w-full h-12 rounded-md p-2 border-0 bg-zinc-800"
                     type="text"
                     id="fullName"
                     placeholder="Fullname"
@@ -135,7 +136,7 @@ const SignUpForm: React.FC = () => {
                     onClick={handleChange}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full h-12 rounded-md p-2  bg-zinc-800 none"
+                    className="w-full h-12 rounded-md p-2 border-0 bg-zinc-800 none"
                     type="email"
                     id="email"
                     placeholder="Email"
@@ -150,7 +151,7 @@ const SignUpForm: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
-                    className="w-full h-12 rounded-md p-2   bg-zinc-800"
+                    className="w-full h-12 rounded-md p-2 border-0  bg-zinc-800"
                     id="password"
                     placeholder="Password"
                   />
@@ -167,7 +168,7 @@ const SignUpForm: React.FC = () => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     type="password"
-                    className="w-full h-12 rounded-md p-2   bg-zinc-800"
+                    className="w-full h-12 rounded-md p-2 border-0  bg-zinc-800"
                     id="confirmPassword"
                     placeholder="Confirm Password"
                   />
@@ -186,7 +187,7 @@ const SignUpForm: React.FC = () => {
                     className=" cursor-pointer font-mono"
                   >
                     Already have an account?{" "}
-                    <Link className="text-purple-400" href="/">
+                    <Link className="text-purple-400" href="/sign-in">
                       Login
                     </Link>
                   </label>

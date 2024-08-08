@@ -63,6 +63,23 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
   const loginClick = () => {
     router.push("/sign-in");
   };
+  const handleChats = ()=>{
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      toast.error("Sign-in Required");
+      return;
+    }
+    router.push('/conversations');
+  }
+
+    const handleCommunity = ()=>{
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      toast.error("Sign-in Required");
+      return;
+    }
+    router.push('/community');
+  }
   return (
     <div className="bg-sidebarBlack h-screen md:w-[250px] w-[50px] float-left ">
          <Toaster />
@@ -113,7 +130,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer " onClick={handleChats}>
             <span className="">
               <PiChatsCircleFill
                 style={{ fontSize: "26px", color: "d55adb" }}
@@ -123,8 +140,8 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
               Chats
             </span>
           </div>
-
-          <div className="mt-9 flex cursor-pointer ">
+          
+          <div className="mt-9 flex cursor-pointer "  onClick={handleCommunity}>
             <span className="">
               <FaPeopleGroup style={{ fontSize: "26px", color: "d55adb" }} />
             </span>

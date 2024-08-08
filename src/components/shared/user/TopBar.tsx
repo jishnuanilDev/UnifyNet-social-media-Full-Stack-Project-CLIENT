@@ -1,13 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-
+import { BsSearch } from "react-icons/bs";
 import { IoNotificationsCircleSharp } from "react-icons/io5";
 import { IoIosPeople } from "react-icons/io";
 import { IoMdPerson } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import UserSearchCard from "@/components/cards/user/UserSearchCard";
+import axios from "axios";
 
-
+import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
 interface User {
   _id: string;
@@ -23,7 +30,10 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
   const router = useRouter();
   // const [user, setUser] = useState<User | null>(null);
   // const [userToken,setUserToken] = useState('');
+  const [searchCard, setSearchCard] = useState(false);
   const userToken = localStorage.getItem("userToken");
+  const [searchName, setSearchName] = useState("");
+  const [users,setUsers] = useState([]);
 
   const profilePage = () => {
     try {
@@ -39,16 +49,64 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
       console.error("Error occured in client add account", err);
     }
   };
+
+  const handleSearch = async () => {
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      toast.error("Sign-in Required");
+      return;
+    }
+    if(searchName.length<1){
+      toast.error("Please enter a username to search!");
+      return ;
+    }
+
+    try {
+      const result = await axios.post("http://localhost:5000/search-name", {
+        searchName,
+      });
+      if(result){
+        setUsers(result.data.users);
+      }
+      setSearchCard(true);
+    } catch (err) {
+      console.log("Error occured in searching users in client side", err);
+    }
+  };
   return (
     <>
+      <Toaster />
       <div className="bg-customBlack h-16  flex justify-end items-center gap-8">
-<div>
-  <input className="rounded-full bg-black border" type="text" />
-</div>
+        <div className="gap-4 flex">
+          <div className="w-[450px] ">
+            <input
+              onChange={(e) => setSearchName(e.target.value)}
+              value={searchName}
+              placeholder="search..."
+              className="rounded-full w-full border-0  font-sans bg-black"
+              type="text"
+            />
+          </div>
+
+          <div
+            className="bg-black px-2.5 py-2 rounded-full cursor-pointer"
+            onClick={handleSearch}
+          >
+            <BsSearch style={{ fontSize: "20px", color: "fuchsia" }} />
+          </div>
+        </div>
+        {searchCard ? (
+          <div className="flex justify-center">
+            <UserSearchCard
+              setSearchCard={setSearchCard}
+              users={users}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="text-sm flex ">
-          
-
-
           <span className="mr-2 ">
             <IoNotificationsCircleSharp
               style={{ fontSize: "27px", color: "#b438ba" }}
