@@ -4,7 +4,7 @@ import { createContext } from 'react'
 export const userContext = createContext();
 
 
-export const userContextProvider = ()=> {
+export const UserContextProvider = ()=> {
     const [user,setUser] = useState(null);
     const saveUser = (userData)=>{
         setUser(userData);

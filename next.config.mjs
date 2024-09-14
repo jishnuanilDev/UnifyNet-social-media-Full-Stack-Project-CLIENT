@@ -37,24 +37,27 @@ const __dirname = path.dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer }) => {
-    // Example: Add a custom alias or plugin
+    // Add custom alias for components directory
     config.resolve.alias['@components'] = path.resolve(__dirname, 'components');
-    
-    // Ensure you are not adding unsupported cache settings
-    // Avoid complex cache configurations if they lead to errors
-
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',  // Match all paths from Cloudinary
+      },
+    ],
+  },
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false, // Ensure builds fail on TypeScript errors
   },
 };
 
 export default nextConfig;
+
 
 
 

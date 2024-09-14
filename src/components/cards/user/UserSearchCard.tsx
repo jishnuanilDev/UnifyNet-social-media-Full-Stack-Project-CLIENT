@@ -67,7 +67,7 @@ const UserSearchCard: React.FC<ISearchCardProps> = ({
                 </h3>
               ) : (
                 users.map((user, index) => (
-                  <Link href={`/user-profile/${user.username}`}>
+                  <Link key={index} href={`/user-profile/${user.username}`}>
                     <li className="list-none">
                       <a
                         href="#"

@@ -2,20 +2,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import Image from 'next/image';
 import { useEffect } from "react";
-
+import axiosInstance from "@/configs/axiosInstance";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const ResetPasswordForm: React.FC = () => {
-
+  const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("userToken");
     console.log("token verifying");
     if (token) {
       router.replace("/");
     }
-  }, []);
+  }, [router]);
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const [errors, setErrors] = useState<{
@@ -23,7 +24,7 @@ const ResetPasswordForm: React.FC = () => {
     passwordMatch?: string;
   }>({});
 
-  const router = useRouter();
+
   const validate = () => {
     const newErrors: typeof errors = {};
     if (!newPassword && !confirmNewPassword)
@@ -46,8 +47,8 @@ const ResetPasswordForm: React.FC = () => {
       e.preventDefault();
       if (!validate()) return;
       const userEmail = localStorage.getItem("userEmail");
-      await axios
-        .post("http://localhost:5000/reset-password", {
+      await axiosInstance
+        .put("/reset-password", {
           userEmail,
           newPassword,
         })

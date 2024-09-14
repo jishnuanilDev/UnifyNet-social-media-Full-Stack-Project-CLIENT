@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import axiosInstance from "@/configs/axiosInstance";
 import { Toaster, toast } from "react-hot-toast";
 
 const ChangePassword: React.FC = () => {
@@ -39,9 +39,9 @@ const ChangePassword: React.FC = () => {
     try {
       if (!validate()) return;
       const userToken = localStorage.getItem("userToken");
-      await axios
-        .post(
-          "http://localhost:5000/change-password",
+      await axiosInstance
+        .put(
+          "/change-password",
           {
             currentPass,
             newPass,

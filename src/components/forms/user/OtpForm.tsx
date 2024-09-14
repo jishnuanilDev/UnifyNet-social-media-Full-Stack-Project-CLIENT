@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import axios from "axios";
 import { toast } from 'react-hot-toast';
-
+import axiosInstance from "@/configs/axiosInstance";
 const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });
 import { useRouter } from "next/navigation";
 
@@ -76,8 +77,8 @@ const OtpForm: React.FC<OtpFormProps> = ({ email }) => {
   const verifySubmit = (e: React.FormEvent) => {
     try {
       e.preventDefault();
-      axios
-        .post("http://localhost:5000/verify-otp", {
+      axiosInstance
+        .post("/verify-otp", {
           otp,
           email,
         })

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
 import { toast } from 'react-hot-toast';
-
+import axiosInstance from "@/configs/axiosInstance";
 const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });;
 
 const ProfileForm: React.FC = () => {
@@ -36,7 +36,7 @@ const ProfileForm: React.FC = () => {
     if (token) {
       router.replace("/");
     }
-  }, []);
+  }, [router]);
 
   const validate = () => {
     const newErrors: typeof errors = {};
@@ -60,7 +60,7 @@ const ProfileForm: React.FC = () => {
     try {
       e.preventDefault();
       if (!validate()) return;
-      const res = await axios.post("http://localhost:5000/create-profile", {
+      const res = await axiosInstance.post("/create-profile", {
         email,
         username,
         phone,

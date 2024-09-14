@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import dynamic from 'next/dynamic';
-const LinearProgress = dynamic(() => import('@mui/material/LinearProgress'));
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function LinearLoading() {
   return (

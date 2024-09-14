@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import axios from "axios";
+import Image from 'next/image';
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import ForgotOtp from "./ForgotOtp";
+import axiosInstance from "@/configs/axiosInstance";
 const ResetPasswordForm = dynamic(() => import('./ResetPassword'), {
   ssr: false, // Disable server-side rendering for this component
   loading: () => <p>Loading Reset Password Form...</p>, // Optional loading component
@@ -18,7 +20,7 @@ const ForgotPassword: React.FC = () => {
     if (token) {
       router.replace("/");
     }
-  }, []);
+  }, [router]);
 
   const [email, setEmail] = useState<string>("");
   const [step, setStep] = useState<number>(1);
@@ -51,8 +53,8 @@ const ForgotPassword: React.FC = () => {
       e.preventDefault();
       if (!validate()) return;
       localStorage.setItem("userEmail", email);
-      await axios
-        .post("http://localhost:5000/forgot-password", {
+      await axiosInstance
+        .post("/forgot-password", {
           email,
         })
         .then((res) => {

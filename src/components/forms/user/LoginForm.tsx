@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios"
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import axiosInstance from "@/configs/axiosInstance";
 const LoginForm: React.FC = () => {
   const router = useRouter();
   useEffect(() => {
@@ -13,7 +12,7 @@ const LoginForm: React.FC = () => {
     if (token) {
       router.replace("/");
     }
-  }, []);
+  }, [router]);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -46,16 +45,22 @@ const LoginForm: React.FC = () => {
       e.preventDefault();
       if (!validate()) return;
 
-      await axios
-        .post("http://localhost:5000/login", {
+      await axiosInstance
+        .post("/login", {
           email,
           password,
         })
         .then((res) => {
           console.log("its back....", res.data);
+          if(res.data.userIsBlocked){
+            toast.error('Your account temporarily blocked by admin');
+            return;
+          }
           localStorage.setItem("userToken", res.data.userToken);
           // localStorage.setItem('user',)
-          router.replace("/");
+            // router.replace("/");
+            window.location.href = '/'
+        
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -128,7 +133,7 @@ const LoginForm: React.FC = () => {
         </section>
 
         <section className="w-full  mt-8  ml-4 p-6 relative bg-gradient-to-r">
-          <img
+          <img 
             src="https://wallpapergod.com/images/hd/dark-abstract-1920X1080-wallpaper-o2ijsiig93s3xwvy.jpeg"
             alt="Banner Image"
             className="w-full  h-full object-cover rounded-md shadow-lg min-h-0"

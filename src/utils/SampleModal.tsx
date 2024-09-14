@@ -1,12 +1,12 @@
 "use client";
 
 import "@/styles/globals.css";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 
 import "flowbite";
 
-const NewPostModal: React.FC = () => {
+const SampleModal: React.FC = () => {
 
     return (
         <div className="w-[500px] relative ">
@@ -87,4 +87,4 @@ const NewPostModal: React.FC = () => {
   }
 
 
-export default NewPostModal;
+export default SampleModal;

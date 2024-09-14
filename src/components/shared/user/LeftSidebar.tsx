@@ -18,12 +18,14 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { toast } from 'react-hot-toast';
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
+import Spinner from "@/styled-components/loader/Spinner";
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
-
-
-const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });
 
 interface setPoststepProps {
   setPostStep?: React.Dispatch<React.SetStateAction<number>>;
@@ -39,6 +41,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
   // }, []);
   const searchParams = useSearchParams();
   const [searchStep,setSearchStep] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const userToken = localStorage.getItem("userToken");
   const logoutClick = () => {
@@ -48,7 +51,10 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
     if (setPostStep) {
       setPostStep(0);
     }
-    router.push("/");
+    toast.success('Logout succesfully');
+    setLoading(true);
+    window.location.href = '/'
+    // router.push("/");
   };
   const handleStep = () => {
     const userToken = localStorage.getItem("userToken");
@@ -61,28 +67,53 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
     }
   };
   const loginClick = () => {
+    
     router.push("/sign-in");
   };
-  const handleChats = ()=>{
+  const handleChats = () => {
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
       toast.error("Sign-in Required");
       return;
     }
-    router.push('/conversations');
+    setLoading(true);
+
+      router.push('/conversations')
+
+
   }
 
+  const handleMarketPlace = ()=>{
+    setLoading(true);
+    router.push('/market-place')
+  }
+  
+  const handleDiscover = ()=>{
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      toast.error("Sign-in Required");
+      return;
+    }
+    setLoading(true);
+      router.push('/discover')
+
+  }
     const handleCommunity = ()=>{
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
       toast.error("Sign-in Required");
       return;
     }
-    router.push('/community');
+    setLoading(true);
+      router.push('/community')
+
   }
   return (
     <div className="bg-sidebarBlack h-screen md:w-[250px] w-[50px] float-left ">
          <Toaster />
+         {
+          loading? <Spinner/>:null
+         }
       <div>
         <div>
           <div
@@ -111,7 +142,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer "  onClick={handleDiscover}>
             <span className="">
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -155,7 +186,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
               <SiCodestream style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
             <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Go live
+              Not
             </span>
           </div>
 
@@ -166,11 +197,11 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
               />
             </span>
             <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Video
+              Profile
             </span>
           </div>
 
-          <div className="mt-9 mb-14 flex cursor-pointer  ">
+          <div className="mt-9 mb-14 flex cursor-pointer  " onClick={handleMarketPlace}>
             <span className="">
               <GiShop style={{ fontSize: "26px", color: "#d55adb" }} />
             </span>
@@ -179,43 +210,45 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-14 mb-8 flex cursor-pointer ">
-            <span className="hidden md:block">
-              <CgDarkMode style={{ fontSize: "26px" }} />
-            </span>
-            <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Darkmode
-            </span>
-            <span className="mr-10 hidden md:block">
-              <LiaToggleOnSolid style={{ fontSize: "26px", color: "d55adb" }} />
-            </span>
-          </div>
-
-          {userToken ? (
-            <div
-              className="mt-5 md:block hidden  bg-lightBlack md:w-[150px] w-[30px] p-1 rounded-md cursor-pointer hover:bg-red-600 transition ease-in"
-              onClick={logoutClick}
-            >
-              <span className="float-start mr-4 ">
-                <AiOutlineLogout className="w-5" style={{ fontSize: "26px" }} />
+    <div className="mt-24">
+            <div className="mt-14 md:mb-8 flex cursor-pointer ">
+              <span className="hidden md:block">
+                <CgDarkMode style={{ fontSize: "26px" }} />
               </span>
-              <span className="flex-1 ml-3 mt-0.5 text-sm font-sans font-bold hidden md:block">
-                Logout
+              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
+                Darkmode
+              </span>
+              <span className="mr-10  md:block">
+                <LiaToggleOnSolid style={{ fontSize: "26px", color: "d55adb" }} />
               </span>
             </div>
-          ) : (
-            <div
-              className="mt-5  flex bg-fuchsia-900 w-[150px] p-1 rounded-md cursor-pointer hover:bg-fuchsia-400 transition ease-in"
-              onClick={loginClick}
-            >
-              <span className="">
-                <IoLogIn style={{ fontSize: "26px" }} />
-              </span>
-              <span className="flex-1 ml-3 mt-1 text-sm font-sans font-bold hidden md:block">
-                Login
-              </span>
-            </div>
-          )}
+  
+            {userToken ? (
+              <div
+                className="mt-5 md:block h-8  bg-lightBlack md:w-[150px] w-[30px] p-1 rounded-md cursor-pointer hover:bg-red-600 transition ease-in"
+                onClick={logoutClick}
+              >
+                <span className="float-start mr-4 ">
+                  <AiOutlineLogout className="w-5" style={{ fontSize: "26px" }} />
+                </span>
+                <span className="flex-1 ml-3 mt-0.5 text-sm font-sans font-bold hidden md:block">
+                  Logout
+                </span>
+              </div>
+            ) : (
+              <div
+                className="mt-5  h-8  flex bg-fuchsia-900 w-[150px] p-1 rounded-md cursor-pointer hover:bg-fuchsia-400 transition ease-in"
+                onClick={loginClick}
+              >
+                <span className="">
+                  <IoLogIn style={{ fontSize: "26px" }} />
+                </span>
+                <span className="flex-1 ml-3 mt-1 text-sm font-sans font-bold hidden md:block">
+                  Login
+                </span>
+              </div>
+            )}
+    </div>
         </div>
       </div>
     </div>

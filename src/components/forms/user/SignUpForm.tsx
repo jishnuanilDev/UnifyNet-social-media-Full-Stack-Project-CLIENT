@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import axios from "axios";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import axiosInstance from "@/configs/axiosInstance";
 import { Toaster, toast } from "react-hot-toast";
 
 import OtpForm from "./OtpForm";
@@ -30,7 +31,7 @@ const SignUpForm: React.FC = () => {
     if (userToken) {
       router.replace("/");
     }
-  }, []);
+  }, [router]);
   const validate = () => {
     const newErrors: typeof errors = {};
     if (!fullname && !email && !password && !confirmPassword)
@@ -43,7 +44,7 @@ const SignUpForm: React.FC = () => {
     else if (!confirmPassword)
       newErrors.confirmPassword = "Confirm password is required";
     else if (password !== confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+      newErrors.confirmPassword = "Passwords not match";
     else if (
       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
         password
@@ -67,8 +68,8 @@ const SignUpForm: React.FC = () => {
     try {
       e.preventDefault();
       if (!validate()) return;
-      await axios
-        .post("http://localhost:5000/sign-up", {
+      await axiosInstance
+        .post("/sign-up", {
           fullname,
           email,
           password,

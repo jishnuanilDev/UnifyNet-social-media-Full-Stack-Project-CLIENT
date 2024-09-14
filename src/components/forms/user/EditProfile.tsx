@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import Image from 'next/image';
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import dynamic from 'next/dynamic';
-import { toast } from 'react-hot-toast';
-
-const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });;
+import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
+import axiosInstance from "@/configs/axiosInstance";
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
 // interface User {
 //     id: string;
@@ -20,11 +23,22 @@ export default function EditProfile() {
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [bio, setBio] = useState("");
-  const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [profilePic, setProfilePic] = useState<any | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState("");
   // const [user,setUser] = useState<User | null >(null);
 
   const router = useRouter();
+
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+     
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
 
   useEffect(() => {
     try {
@@ -35,7 +49,7 @@ export default function EditProfile() {
             router.replace("/sign-in");
           }
 
-          const result = await axios.get("http://localhost:5000/profile", {
+          const result = await axiosInstance.get("/profile", {
             headers: {
               Authorization: userToken,
             },
@@ -57,53 +71,73 @@ export default function EditProfile() {
     } catch (err) {
       console.error("Error fetching user profile in profile edit", err);
     }
-  }, []);
+  }, [router]);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const maxSizeInMB = 5;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+
     const selectedFile = event.target.files && event.target.files[0];
+
     if (selectedFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-      setFile(selectedFile);
+      if (selectedFile.size > maxSizeInBytes) {
+        alert("File is too large. Maximum size is 5MB.");
+        return;
+      }
+
+      if (!validImageTypes.includes(selectedFile.type)) {
+        alert("Invalid file type. Please upload a JPEG, PNG, or GIF.");
+        return;
+      }
+
+      try {
+        const base64Image = await convertToBase64(selectedFile);
+        setImage(base64Image);
+      } catch (error) {
+        console.error("Error converting file to base64:", error);
+      }
     }
   };
 
   const handleSubmit = async () => {
     try {
-      if (!file) {
+      if (!image) {
         alert("Please select a profile picture.");
         return;
       }
 
       const formData = new FormData();
-      formData.append("profilePic", file);
-      formData.append("username", username);
-      formData.append("fullname", fullname);
-      formData.append("bio", bio);
+
 
       const userToken = localStorage.getItem("userToken");
-      const res = await axios.post(
-        "http://localhost:5000/edit-profile",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: userToken,
+      const res = await axiosInstance
+        .put(
+          "/edit-profile",
+          {
+            username,
+            fullname,
+            bio,
+            image,
           },
-        }
-      ).then((res)=>{
-        console.log(res.data);
-        toast.success(res.data.message);
-        setTimeout(() => {
-          router.replace("/profile");
-        },1000);
-      }).catch((err)=>{
-        toast.error(err.response.data.message)
-      })
-     
+          {
+            headers: {
+              Authorization: userToken,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          toast.success(res.data.message);
+          setTimeout(() => {
+            router.replace("/profile");
+          }, 1000);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
     } catch (err) {
       console.error("Error occured in post edited profile data in client", err);
     }
@@ -142,9 +176,9 @@ export default function EditProfile() {
             <span className="font-semibold cursor-pointer text-sm hover:bg-red-600 bg-red-800 px-3 rounded-lg transition ease-in-out">
               Delete
             </span>
-            <span className="font-semibold cursor-pointer text-sm hover:bg-purple-600 bg-purple-800 px-3 rounded-lg transition ease-in-out">
+            {/* <span onChange={handleFileChange}  className="font-semibold cursor-pointer text-sm hover:bg-purple-600 bg-purple-800 px-3 rounded-lg transition ease-in-out">
               Change
-            </span>
+            </span> */}
           </div>
 
           <div>
@@ -194,7 +228,7 @@ export default function EditProfile() {
           </div>
           <div className="mt-12 flex justify-center gap-10">
             <button
-              onClick={() => router.replace("/home/profile")}
+              onClick={() => router.replace("/profile")}
               className="bg-gradient-to-r from-red-600/25 to-red-600 px-4 rounded-full"
             >
               Cancel

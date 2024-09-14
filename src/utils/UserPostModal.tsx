@@ -6,30 +6,40 @@ const UserPostBox = dynamic(() => import('@/components/shared/user/UserPostBox')
 });
 
 interface IUser {
-    _id: string;
-    fullname: string;
-    username: string;
-    bio: string;
-    email: string;
-    // Add other properties as needed
-  }
+  _id: string;
+  profilePic: string;
+  fullname: string;
+  username: string;
+  bio: string;
+  email: string;
+  savedPost: string[];
+  // Add other properties as needed
+}
 interface Ipost {
   _id: string;
   caption?: string;
-  postId:string;
   image?: {
     url: string;
   };
+  user?: IUser;
 
   comments: [
     {
+      _id: string;
       user: IUser;
       comment: string;
+      replies: [
+        {
+          _id: string;
+          user: string;
+          commentReply: string;
+        }
+      ];
     }
   ];
-  user:IUser
-
+  postId: string;
   likes: string[];
+  createdAt: Date;
 }
 
 interface PostProps {

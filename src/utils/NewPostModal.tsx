@@ -1,10 +1,11 @@
 "use client";
 import { usePathname, useSearchParams } from "next/navigation";
-import "@/styles/globals.css";
+import axiosInstance from "@/configs/axiosInstance";
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
-import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import dynamic from "next/dynamic";
 import { Area } from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import Cropper from "react-easy-crop";
@@ -12,11 +13,11 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
-
-const LinearLoading = dynamic(() => import('@/styled-components/LinearLoading'), {
-  loading: () => <p>Loading...</p>, // Optional loading component
-});
+import GeminiButton from "@/components/buttons/GeminiButton";
+import PublishButton from "@/components/buttons/PublishButton";
+import "@/styles/globals.css";
+import { Button as nextButton } from "@nextui-org/react";
+import LinearLoading from "@/styled-components/LinearLoading";
 
 import "flowbite";
 import axios from "axios";
@@ -37,6 +38,8 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
   const [croppedImageUrl, setCroppedImageUrl] = useState("");
   const [postImage, setPostImage] = useState("");
   const [disable, setDisable] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
 
   const onCropComplete = useCallback(
     (croppedArea: Area, croppedAreaPixels: Area) => {
@@ -54,6 +57,7 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
       reader.onload = () => {
         setImageSrc(reader.result as string);
       };
+      setFile(seletectedFile)
     }
   };
 
@@ -80,6 +84,32 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
     setCaption("");
   };
 
+  const handleGenerateCaption = async()=>{
+    setLoading(true);
+    try{
+      const userToken = localStorage.getItem("userToken");
+      const response = await axiosInstance.post(
+        "/generate-caption",
+        {postImage},
+
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+     
+      
+      if(response){
+        toast.success("caption generated");
+        setCaption(response.data.caption);
+        setLoading(false);
+      }
+    }catch(err){
+      console.error("Error occurred in generate caption in client", err);
+    }
+  }
+
   const newPostSubmit = async () => {
     try {
       if (!postImage) {
@@ -92,8 +122,8 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
       // formData.append("postImage", postImage);
       // formData.append("caption", caption);
 
-      const response = await axios.post(
-        "http://localhost:5000/create-post",
+      const response = await axiosInstance.post(
+        "/create-post",
         { caption, postImage },
 
         {
@@ -173,34 +203,37 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
                       <div className="w-[500px] h-auto">
                         {croppedImageUrl && (
                           <img
+                         
                             src={croppedImageUrl}
                             alt="Cropped"
                             className="rounded-md w-full max-w-full"
                           />
                         )}
                       </div>
-
-                      <div className="flex mt-10 w-[500px]">
+                     {/* <div className="mt-10"> <GeminiButton/></div> */}
+                      <div className="flex mt-2 w-[500px]">
+                    
                         <input
                           placeholder="Add caption"
-                          className="bg-lightBlack w-full h-8 rounded-full p-3 text-[12px]"
+                          className="bg-lightBlack w-full h-9 rounded-full p-3 text-[12px]"
                           type="text"
                           onChange={(e) => setCaption(e.target.value)}
                           value={caption}
                         />
+                     
                       </div>
-
-                      <div className="mt-5">
+                      {loading && <LinearLoading />}
+                     
+                      <div onClick={handleGenerateCaption} className="mt-2"><GeminiButton/></div>
+                      <div className="mt-5 mb-3 w-full">
                         {disable ? (
                           <LinearLoading />
                         ) : (
-                          <button
-                            onClick={newPostSubmit}
-                            type="submit"
-                            className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                          >
-                            Publish
-                          </button>
+                  <>
+                      
+                        <div className="w-full"  onClick={newPostSubmit}><PublishButton/></div>
+                    
+                  </>
                         )}
                       </div>
                     </div>
@@ -234,6 +267,7 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
                     <input
                       id="dropzone-file"
                       type="file"
+                      accept="image/*"
                       className="hidden"
                       onChange={handleFileChange}
                     />

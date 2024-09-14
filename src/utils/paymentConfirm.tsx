@@ -11,13 +11,13 @@ import "@/styles/globals.css";
 interface IAlertProps{
 open:boolean;
 setOpen:React.Dispatch<React.SetStateAction<boolean>>
-setCardOpen:React.Dispatch<React.SetStateAction<boolean>>
+setKycOpen:React.Dispatch<React.SetStateAction<boolean>>
 }
- const AlertDialog:React.FC<IAlertProps> = ({open,setOpen,setCardOpen})=> {
+ const AlertDialog:React.FC<IAlertProps> = ({open,setOpen,setKycOpen})=> {
 //   const [open, setOpen] = React.useState(false);
 
   const handleCardOpen = () => {
-    setCardOpen(true);
+    setKycOpen(true);
     setOpen(false);
   };
 
@@ -31,20 +31,24 @@ setCardOpen:React.Dispatch<React.SetStateAction<boolean>>
         Open alert dialog
       </Button> */}
       <Dialog
+      
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         sx={{
-            '& .MuiDialog-paper': {
-              backgroundColor:'#0d0b0d',
-              color: 'white',
-              borderRadius:'15px',
-              
+          '& .MuiDialog-paper': {
+            backgroundColor: '#0d0b0d',
+            color: 'white',
+            borderRadius: '15px',
+            '@media (max-width: 767px)': { // Media query for mobile view
+              height: '100px', // Set height to 300px for mobile
+              width: '300px', // Set width to 200px for mobile (optional)
             },
-          }}
+          },
+        }}
       >
-        <DialogTitle id="alert-dialog-title" className='font-extrabold' style={{color:'#e0b73d'}}>
+        <DialogTitle id="alert-dialog-title" className='font-extrabold md:text-base text-[12px]' style={{color:'#e0b73d'}}>
          Activate Your Premium Account 
         </DialogTitle>
         <DialogContent >

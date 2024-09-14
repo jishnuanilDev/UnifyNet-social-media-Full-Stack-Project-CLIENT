@@ -1,13 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-
-import { Toaster } from "react-hot-toast";
+import axiosInstance from "@/configs/axiosInstance";
+import dynamic from "next/dynamic";
+import Image from 'next/image';
+import { toast } from "react-hot-toast";
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 import { useRouter } from "next/navigation";
 
 const AdminLoginForm: React.FC = () => {
   const router = useRouter();
 
+  useEffect(()=>{
+    try{
+const adminToken = localStorage.getItem('adminToken');
+if(adminToken){
+router.push('/admin-panel')
+}
+    }catch(err){
+      console.log('Error occured in admin token check')
+    }
+  })
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<{
@@ -39,17 +55,16 @@ const AdminLoginForm: React.FC = () => {
       e.preventDefault();
       if (!validate()) return;
 
-      router.push("/admin-panel");
-      //   const res = await axios.post('http://localhost:5000/admin-login',{
-      //     email,password
-      //   }).then((res)=>{
-      //     console.log('its back....', res.data);
-      //     localStorage.setItem("adminToken",res.data.adminToken);
-      //     router.push('/admin-panel')
-      //   }).catch((err)=>{
-      //     console.log(err.response.data.message)
-      //     toast.error(err.response.data.message)
-      //   })
+        const res = await axiosInstance.post('/admin/admin-login',{
+          email,password
+        }).then((res)=>{
+          localStorage.setItem("adminToken",res.data.adminToken);
+          toast.success(res.data.message);
+          router.push('/admin-panel')
+        }).catch((err)=>{
+          console.log(err.response.data.message)
+          toast.error(err.response.data.message)
+        })
     } catch (error) {
       console.error("Error occurred during login:", error);
     }

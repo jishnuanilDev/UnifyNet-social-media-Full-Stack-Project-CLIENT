@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useRef } from "react";
+import Image from 'next/image';
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
+import axiosInstance from "@/configs/axiosInstance";
 interface ForgotOtpProps {
   email: string;
   setResetStep: React.Dispatch<React.SetStateAction<number>>;
@@ -73,8 +74,8 @@ const ForgotOtp: React.FC<ForgotOtpProps> = ({ email, setResetStep }) => {
   const verifySubmit = (e: React.FormEvent) => {
     try {
       e.preventDefault();
-      axios
-        .post(`http://localhost:5000/fpassword-otp/${email}`, {
+      axiosInstance
+        .post(`/fpassword-otp/${email}`, {
           otp,
         })
         .then((res) => {

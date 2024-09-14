@@ -128,8 +128,8 @@ if(searchStep){
                           />
                         </div>
                         {
-                            users.map((user)=>(
-                                <div className="text-[12px] font-semibold mr-auto ">
+                            users.map((user,index)=>(
+                                <div key={index} className="text-[12px] font-semibold mr-auto ">
                                 {user.username}
                                 </div>
                             ))

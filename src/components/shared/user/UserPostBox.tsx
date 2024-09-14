@@ -4,6 +4,7 @@ import { FaRegComment } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import { RiShareForwardFill } from "react-icons/ri";
+import Image from 'next/image';
 import axios from "axios";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaLocationArrow } from "react-icons/fa6";
@@ -22,10 +23,12 @@ import { BsSave2 } from "react-icons/bs";
 
 interface IUser {
   _id: string;
+  profilePic: string;
   fullname: string;
   username: string;
   bio: string;
   email: string;
+  savedPost: string[];
   // Add other properties as needed
 }
 interface Ipost {
@@ -34,15 +37,25 @@ interface Ipost {
   image?: {
     url: string;
   };
+  user?: IUser;
+
   comments: [
     {
+      _id: string;
       user: IUser;
       comment: string;
+      replies: [
+        {
+          _id: string;
+          user: string;
+          commentReply: string;
+        }
+      ];
     }
   ];
-  user:IUser;
   postId: string;
   likes: string[];
+  createdAt: Date;
 }
 
 interface PostProps {
@@ -78,7 +91,7 @@ const UserPostBox: React.FC<PostProps> = ({
         setLiked(true);
       }
     }
-  }, [likes, userPost]);
+  }, [likes, userPost,user]);
 
   const handleLike = () => {
     if (!userToken) {
@@ -171,8 +184,9 @@ const UserPostBox: React.FC<PostProps> = ({
           <CommentModal
             commentModal={commentModal}
             setCommentModal={setCommentModal}
-            post={userPost}
-          />
+            post={userPost} setUpdate={function (value: React.SetStateAction<boolean>): void {
+              throw new Error("Function not implemented.");
+            } }          />
 
           <div className="flex  mt-3 ml-5">
             <span className="md:text-sm text-[10px] font-sans font-medium">
