@@ -21,7 +21,8 @@ interface User {
 interface Params {
   username: string;
 }
-const socket = io("http://localhost:4000");
+const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
+const socket = io(webrtcSocketUrl);
 const ReadyToCallLayout = ({ params }: { params: Params }) => {
   const [videoLayout, setVideoLayout] = useState(false);
   const [me, setMe] = useState("");

@@ -70,7 +70,8 @@ interface Ipost {
   likes: string[];
   createdAt: Date;
 }
-const socket = io("http://localhost:8000");
+const chatSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_CHAT
+const socket = io(chatSocketUrl);
 function Home() {
   const [postStep, setPostStep] = useState(0);
   const [posts, setPosts] = useState<Ipost[]>([]);

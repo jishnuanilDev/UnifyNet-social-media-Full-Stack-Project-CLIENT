@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from 'next/image';
+import axiosInstance from "@/configs/axiosInstance";
 const AdminLeftSidebar = dynamic(
   () => import("@/components/shared/Admin/LeftSidebarAdmin"),
   {
@@ -62,8 +63,8 @@ const AdminPanel = () => {
           toast.error("Token not available");
           router.replace("/admin");
         }
-        const response = await axios.get(
-          "http://localhost:5000/admin/getReportPosts"
+        const response = await axiosInstance.get(
+          "/admin/getReportPosts"
         );
         if (response) {
           setPosts(response.data.posts);

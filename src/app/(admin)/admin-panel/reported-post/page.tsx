@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
 import TopBarSkeleton from "@/styled-components/skeletons/TopBarSkeleton";
 import Pagination from '@mui/material/Pagination';
+import axiosInstance from "@/configs/axiosInstance";
 import Swal from "sweetalert2";
 import Image from 'next/image';
 import Stack from '@mui/material/Stack';
@@ -71,8 +72,8 @@ const AdminPanelReportPosts = () => {
           toast.error("Token not available");
           router.replace("/admin");
         }
-        const response = await axios.get(
-          "http://localhost:5000/admin/getReportPosts"
+        const response = await axiosInstance.get(
+          "/admin/getReportPosts"
         );
         if (response) {
           setPosts(response.data.posts);
@@ -95,8 +96,8 @@ const AdminPanelReportPosts = () => {
   const handleUnlist = async (postId: string) => {
     try {
       console.log("post id displaying for unlisting reported post in client");
-      const response = await axios.post(
-        "http://localhost:5000/admin/unlist-post",
+      const response = await axiosInstance.post(
+        "/admin/unlist-post",
         {
           postId,
         }
@@ -114,8 +115,8 @@ const AdminPanelReportPosts = () => {
   const handleList = async (postId: string) => {
     try {
       console.log("post id displaying for unlisting reported post in client");
-      const response = await axios.post(
-        "http://localhost:5000/admin/list-post",
+      const response = await axiosInstance.post(
+        "/admin/list-post",
         {
           postId,
         }

@@ -9,7 +9,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 const Avatar = dynamic(() => import('@mui/material/Avatar'));
 import { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
-
+import axiosInstance from "@/configs/axiosInstance";
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -36,8 +36,8 @@ const UserSearchModal: React.FC<IsearchStepProps> = ({searchStep,setSearchStep,s
   useEffect(()=>{
     try{
         const fetchUsers=async ()=>{
-            const response = await axios.get(
-                "http://localhost:5000/admin/getUsers"
+            const response = await axiosInstance.get(
+                "/admin/getUsers"
               );
               if (response.data) {
                 setUsers(response.data.users);
@@ -64,8 +64,8 @@ const UserSearchModal: React.FC<IsearchStepProps> = ({searchStep,setSearchStep,s
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:5000/report-post",
+      const response = await axiosInstance.post(
+        "/report-post",
         {},
         {
           headers: {

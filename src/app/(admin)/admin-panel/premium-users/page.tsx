@@ -59,8 +59,8 @@ const AdminPanel = () => {
 
   const handleBlockUsers=async(userId:string)=>{
     try{
-       await axios.post(
-        `http://localhost:5000/admin/blockUser?userId=${userId}`,
+       await axiosInstance.post(
+        `/admin/blockUser?userId=${userId}`,
       );
       alert('Updated successfully')
     }catch (error) {

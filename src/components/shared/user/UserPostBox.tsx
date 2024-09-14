@@ -4,6 +4,7 @@ import { FaRegComment } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import { RiShareForwardFill } from "react-icons/ri";
+import axiosInstance from "@/configs/axiosInstance";
 import Image from 'next/image';
 import axios from "axios";
 import { HiDotsVertical } from "react-icons/hi";
@@ -110,8 +111,8 @@ const UserPostBox: React.FC<PostProps> = ({
         return;
       }
       const postId = userPost._id;
-      const response = axios.post(
-        "http://localhost:5000/like-post",
+      const response = axiosInstance.post(
+        "/like-post",
         { postId },
         {
           headers: {
@@ -132,8 +133,8 @@ const UserPostBox: React.FC<PostProps> = ({
         return;
       }
       const postId = userPost._id;
-      const response = axios.post(
-        "http://localhost:5000/unLike-post",
+      const response = axiosInstance.post(
+        "/unLike-post",
         { postId },
         {
           headers: {
@@ -153,8 +154,8 @@ const UserPostBox: React.FC<PostProps> = ({
         return;
       }
       const postId = userPost._id;
-      const response = await axios.post(
-        "http://localhost:5000/user-comment",
+      const response = await axiosInstance.post(
+        "/user-comment",
         {
           comment,
           postId,

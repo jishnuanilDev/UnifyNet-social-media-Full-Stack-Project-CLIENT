@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import { headers } from "next/headers";
 import axios from "axios";
+import axiosInstance from "@/configs/axiosInstance";
 
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
@@ -26,7 +27,7 @@ if(!userToken){
   return;
 }
 
-const response = await axios.post('http://localhost:5000/report-post',{
+const response = await axiosInstance.post('/report-post',{
   report,postId
 }, {
   headers: {

@@ -16,7 +16,8 @@ const Toaster = dynamic(
 interface Params {
   username: string;
 }
-const socket = io("http://localhost:4000");
+const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
+const socket = io(webrtcSocketUrl);
 const ReadyToCallPage = ({ params }: { params: Params }) => {
   const [showComponent, setShowComponent] = useState(false);
   useEffect(() => {

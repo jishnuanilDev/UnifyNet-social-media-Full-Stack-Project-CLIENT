@@ -75,7 +75,8 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
   const [comment, setComment] = useState("");
 
   const socket = useRef(null);
-  socket.current = io("http://localhost:9000");
+  const notificationSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION
+  socket.current = io(notificationSocketUrl);
   useEffect(() => {
     if (post.likes && user) {
       setLikes(post.likes.length);

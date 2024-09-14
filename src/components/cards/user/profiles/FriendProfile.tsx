@@ -74,7 +74,8 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
   const [follow, setFollow] = useState(false);
   const [accept, setAccept] = useState(false);
   const socket = useRef(null);
-  socket.current = io("http://localhost:9000");
+  const notificationSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION
+  socket.current = io(notificationSocketUrl);
   useEffect(() => {
     if (friend?.followers && user) {
       const following = friend.followers.some(
