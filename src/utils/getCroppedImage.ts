@@ -1,3 +1,4 @@
+
 import { Area } from "react-easy-crop";
 export const getCroppedImg = (imageSrc: string, crop: Area): Promise<string> => {
     return new Promise((resolve, reject) => {
