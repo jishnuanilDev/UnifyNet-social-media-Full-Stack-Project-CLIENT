@@ -10,6 +10,7 @@ import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkelet
 import PostBoxSkeleton from "@/styled-components/skeletons/PostBoxSkeleton";
 import TopBarSkeleton from "@/styled-components/skeletons/TopBarSkeleton";
 import io from "socket.io-client";
+import axios from "axios";
 
 // Dynamic imports with ssr: false
 const PostBox = dynamic(() => import("@/components/shared/user/PostBox"), {
