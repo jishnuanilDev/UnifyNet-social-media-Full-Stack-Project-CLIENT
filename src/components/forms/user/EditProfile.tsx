@@ -46,7 +46,7 @@ export default function EditProfile() {
         try {
           const userToken = localStorage.getItem("userToken");
           if (!userToken) {
-            router.replace("/sign-in");
+            router.replace("/");
           }
 
           const result = await axiosInstance.get("/profile", {
@@ -145,10 +145,10 @@ export default function EditProfile() {
   return (
     <>
       <Toaster />
-      <div className="flex justify-center items-center">
-        <main className="bg-sidebarBlack w-[800px] h-[699px] mt-10 rounded-xl">
-          <header className="flex justify-center mt-14">
-            <div className="flex justify-center mt-14">
+      <div className="flex justify-center md:items-center h-screen">
+        <main className="bg-sidebarBlack md:w-[800px] w-80  md:mt-10 rounded-xl">
+          <header className="flex justify-center md:mt-14 mt-4">
+            <div className="flex justify-center md:mt-14">
               <div className="relative w-28 h-28">
                 <div className="w-28 h-28 bg-white rounded-full overflow-hidden">
                   {profilePic ? (
@@ -182,7 +182,7 @@ export default function EditProfile() {
           </div>
 
           <div>
-            <div className="flex justify-center -ml-[430px] mb-3">
+            <div className="flex justify-center md:-ml-[430px] -ml-60 mb-3">
               {" "}
               <label className=" text-sm text-white/70">Username</label>
             </div>
@@ -197,7 +197,7 @@ export default function EditProfile() {
               />
             </div>
 
-            <div className="flex justify-center -ml-[440px] mb-3">
+            <div className="flex justify-center md:-ml-[440px] -ml-60 mb-3">
               {" "}
               <label className=" text-sm text-white/70">Fullname</label>
             </div>
@@ -212,7 +212,7 @@ export default function EditProfile() {
               />
             </div>
 
-            <div className="flex justify-center -ml-[470px] mb-3">
+            <div className="flex justify-center md:-ml-[470px] -ml-72 mb-3">
               <label className=" text-sm text-white/70">Bio</label>
             </div>
             <div className="flex justify-center mb-5">
@@ -220,13 +220,13 @@ export default function EditProfile() {
                 placeholder="eg: Artist"
                 onChange={(e) => setBio(e.target.value)}
                 value={bio}
-                className="w-[500px] h-28 rounded-xl p-3 bg-black text-[13px] resize-none placeholder-white/30"
+                className="w-[500px] border-none h-28 rounded-xl p-3 bg-black text-[13px] resize-none placeholder-white/30"
                 name=""
                 id=""
               ></textarea>
             </div>
           </div>
-          <div className="mt-12 flex justify-center gap-10">
+          <div className="mt-12 flex justify-center gap-10 mb-10">
             <button
               onClick={() => router.replace("/profile")}
               className="bg-gradient-to-r from-red-600/25 to-red-600 px-4 rounded-full"

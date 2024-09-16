@@ -8,6 +8,7 @@ import { BsSearch } from "react-icons/bs";
 import CategoryDropdown from "@/styled-components/dropdowns/DropDown";
 import EditProductForm from "@/components/forms/user/EditProductForm";
 import UserListCard from "./UserListCard";
+import { useRouter } from "next/navigation";
 
 interface Ipost {
   _id: string;
@@ -43,11 +44,14 @@ const UserProductList: React.FC = () => {
   const [userLists, setUserLists] = useState<Ipost[]>([]);
   const [update, setUpdate] = useState(false);
   const [user, setUser] = useState<IUser | null>(null);
-
+const router = useRouter();
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
         const userToken = localStorage.getItem("userToken");
+        if(!userToken){
+          router.replace('/')
+        }
         const result = await axiosInstance.get("/fetch-user-lists", {
           headers: {
             Authorization: userToken,

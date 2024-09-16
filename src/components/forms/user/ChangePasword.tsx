@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axiosInstance from "@/configs/axiosInstance";
 import { Toaster, toast } from "react-hot-toast";
-
+import Spinner from "@/styled-components/loader/Spinner";
 const ChangePassword: React.FC = () => {
+
+  const [loading, setLoading] = useState(false);
   const [currentPass, setCurrentPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirmNewPass, setConfirmNewPass] = useState("");
@@ -30,6 +32,14 @@ const ChangePassword: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const logoutClick = () => {
+    console.log("user logout clicked");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user");
+    setLoading(true);
+
+    router.push("/sign-in");
+  };
   const handleChange = () => {
     setErrors({});
     setCheck("");
@@ -69,21 +79,24 @@ const ChangePassword: React.FC = () => {
 
   return (
     <div>
-      <section className=" flex items-center justify-center ">
-        <div className="bg-customBlack w-[700px] h-[400px] flex justify-center rounded-md mt-10">
+          {
+          loading? <Spinner/>:null
+         }
+      <section className=" flex md:items-center justify-center h-screen">
+        <div className="bg-customBlack md:w-[700px] mt-28  w-80 h-[400px] flex justify-center rounded-md md:mt-10">
           <div>
             <div className="text-fuchsia-600 font-extrabold mt-8 italic mb-6 flex justify-center">
               <h2>Change Your Password</h2>
             </div>
             <Toaster />
 
-            <form action="" onSubmit={handleSubmit}>
+            <form className="" action="" onSubmit={handleSubmit}>
               <div className=" flex justify-center ">
                 <input
                   onClick={handleChange}
                   onChange={(e) => setCurrentPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full border-0 p-3 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className="md:w-[500px] w-80 h-8 rounded-full border-0 p-3 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Enter current password"
                 />
@@ -104,12 +117,12 @@ const ChangePassword: React.FC = () => {
                   {errors.samePass}
                 </p>
               )}
-              <div className="mb-4 text-end mr-2">
+              <div className="mb-4 text-end md:mr-2 mr-3" onClick={logoutClick}>
                 <Link
-                  href="/home/profile/change-password/forgot-password"
+                  href="#"
                   className="text-[11px] font-light font-sans text-fuchsia-500 "
                 >
-                  Forgot password
+                  Sign out & Reset password &rarr;
                 </Link>
               </div>
               <div className="mb-8 flex justify-center">
@@ -117,7 +130,7 @@ const ChangePassword: React.FC = () => {
                   onClick={handleChange}
                   onChange={(e) => setNewPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30 inputError"
+                  className="md:w-[500px] w-80 h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30 inputError"
                   id="username"
                   placeholder="Enter new password"
                 />
@@ -127,7 +140,7 @@ const ChangePassword: React.FC = () => {
                   onClick={handleChange}
                   onChange={(e) => setConfirmNewPass(e.target.value)}
                   type="text"
-                  className="w-[500px] h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30"
+                  className="md:w-[500px] w-80 h-8 rounded-full p-3 border-0 bg-midBlack text-[13px] placeholder:text-white/30"
                   id="username"
                   placeholder="Confirm new password"
                 />

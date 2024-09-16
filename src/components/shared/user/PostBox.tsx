@@ -299,16 +299,20 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
                 />
               )}
             </span>
-            <span className="md:text-sm text-[10px] font-sans font-medium md:mt-0 mt-1">
-              {post.user?.username}
-            </span>
 
-            <span className="md:text-[12px] text-[8px] font-light md:mt-1 ml-1 mt-1.5 text-white/60">
-              . {format(post.createdAt)}
-            </span>
+              <span className="md:text-sm text-[10px] font-sans font-medium md:mt-0 mt-1">
+                {post.user?.username}
+              </span>
+  
+       
+                <span className="md:text-[12px]  text-[8px]  md:mt-1 ml-1 mt-1.5 text-white/60 whitespace-nowrap">
+                . {format(post.createdAt)}
+                </span>
+
+     
 
             <span
-              className="text-sm font-sans ml-[160px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
+              className="text-sm font-sans ml-[150px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               <HiDotsVertical style={{ fontSize: "18px" }} />

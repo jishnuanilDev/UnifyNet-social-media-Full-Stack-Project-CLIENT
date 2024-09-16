@@ -220,11 +220,11 @@ function Home() {
               </div>
             </>
           )}
-
-        </main>
-        <footer className="mt-8 h-10 w-full">
+   <footer className="mt-8 h-10 w-full">
             <div className="">hai</div>
           </footer>
+        </main>
+     
       </div>
     </div>
   );

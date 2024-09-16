@@ -74,8 +74,8 @@ const ChatUsers: React.FC<IsetChatProps> = ({ setChat }) => {
     fetchChats();
   }, [searchCard,router]);
   return (
-    <div>
-      <section className="w-[350px] bg-black h-screen flex flex-col">
+    <div >
+      <section className="md:w-[350px] bg-black h-screen flex flex-col">
         <div className="flex justify-center mt-3">
           <input
             className="bg-sidebarBlack rounded-full w-[90%] border-none text-white"

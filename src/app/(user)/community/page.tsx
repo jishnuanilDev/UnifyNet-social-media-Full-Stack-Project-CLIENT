@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
 const ProfileSidebar = dynamic(() => import("@/components/shared/user/ProfileSidebar"), {
   loading: () => <LeftSidebarSkeleton/>,
@@ -22,6 +22,7 @@ const CommunityUsers = dynamic(() => import("@/components/cards/user/chat/commun
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useRouter } from "next/navigation";
 interface IUser {
   _id: string;
   fullname: string;
@@ -54,11 +55,18 @@ interface ICommunity {
 //   community: ICommunity;
 // }
 function Community() {
+  const router = useRouter()
   const [chatBox, setChatBox] = useState(false);
   const [communityy, setCommunityy] = useState<ICommunity | null>(null);
   const [msg,setMsg] = useState(false)
   const reduxCommunity:ICommunity | null = useSelector((state: RootState) => state.community);
 
+ useEffect(()=>{
+const userToken = localStorage.getItem('userToken');
+if(!userToken){
+  router.replace('/')
+}
+ },[router])
   return (
     <div className="flex">
       <ProfileSidebar />

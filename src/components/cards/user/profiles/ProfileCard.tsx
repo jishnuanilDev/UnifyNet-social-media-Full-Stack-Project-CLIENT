@@ -235,12 +235,13 @@ setTrigger(!true)
             }
            
           </div>
-          <div className="flex gap-7 md:mt-5 mt-2 md:ml-0 ml-[-20px]">
+          <div className="flex gap-7 md:mt-5 mt-2 md:ml-0 ">
             <span className=" md:text-sm  text-[10px] font-thin text-white/60 ">
               {user?.fullname}
             </span>
+            
           </div>
-          <div className="flex gap-7 md:mt-5 mt-2 ml-[-70px]">
+          <div className="flex gap-7 md:mt-5 mt-2 ">
             <span className=" md:text-sm text-[10px] font-bold italic">{user?.bio}</span>
           </div>
         </div>

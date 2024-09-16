@@ -248,9 +248,9 @@ const ChatCard: React.FC<IChatProps> = ({ chat }) => {
   };
 
   return (
-    <div>
+    <div >
       <Toaster />
-      <section className="bg-sidebarBlack w-[900px] h-screen flex flex-col">
+      <section className="bg-sidebarBlack md:w-[900px] h-screen flex flex-col">
         <header className="bg-gradient-to-r from-fuchsia-900 to-purple-900/60 h-20 mt-5 ml-5 mr-5 rounded-md flex overflow-hidden">
           <div className="flex mt-5 gap-3 ml-3 cursor-pointer">
             {chat.participants[0]?._id === currentUserId ? (

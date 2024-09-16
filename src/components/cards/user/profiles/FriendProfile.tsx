@@ -8,9 +8,10 @@ import AlertDialog from "@/utils/paymentConfirm";
 import PricingModal from "../payment/Pricingcard";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
-import Image from 'next/image';
+import Image from "next/image";
 import axiosInstance from "@/configs/axiosInstance";
 import io from "socket.io-client";
+
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -22,7 +23,7 @@ interface IUser {
   username: string;
   bio: string;
   email: string;
-  isPremium:boolean;
+  isPremium: boolean;
 }
 
 interface Ipost {
@@ -50,8 +51,8 @@ interface User {
   savedPost: string[];
   bio: string;
   email: string;
-  profilePic:string;
-  isPremium:boolean;
+  profilePic: string;
+  isPremium: boolean;
   followers?: [
     {
       user: IUser;
@@ -62,8 +63,7 @@ interface User {
       user: IUser;
     }
   ];
-  posts?:[]
-
+  posts?: [];
 }
 interface UserProps {
   friend: User | null;
@@ -74,15 +74,24 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
   const [follow, setFollow] = useState(false);
   const [accept, setAccept] = useState(false);
   const socket = useRef(null);
-  const notificationSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION
-  socket.current = io(notificationSocketUrl,{ path: "/notificationSocket.io"});
+  const router = useRouter();
+  const notificationSocketUrl =
+    process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION;
+  socket.current = io(notificationSocketUrl, {
+    path: "/notificationSocket.io",
+  });
   useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+
+    if (!userToken) {
+      router.replace("/");
+    }
     if (friend?.followers && user) {
       const following = friend.followers.some(
-        (following:any) => following === user?._id
+        (following: any) => following === user?._id
       );
       const follower = user.followers.some(
-        (follower:any) => follower === friend._id
+        (follower: any) => follower === friend._id
       );
 
       if (following && follower) {
@@ -91,7 +100,7 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
         setAccept(true);
       }
     }
-  }, [user,friend._id,friend.followers]);
+  }, [user, friend._id, friend.followers]);
 
   const handleFollow = async () => {
     try {
@@ -109,17 +118,15 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
       );
       if (result) {
         socket.current.emit("followNotification", {
-          receiverId:friend._id,
+          receiverId: friend._id,
           senderId: user._id,
-        }); 
+        });
         toast.success(result.data.message);
       }
     } catch (err) {
       console.log("Error occured in handlefollow in client side", err);
     }
   };
-
-
 
   const handleUnFollow = async () => {
     try {
@@ -143,7 +150,7 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
     }
   };
 
-  const handleAccept=async ()=>{
+  const handleAccept = async () => {
     try {
       setFollow(true);
       const userToken = localStorage.getItem("userToken");
@@ -163,7 +170,7 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
     } catch (err) {
       console.log("Error occured in handlefollow in client side", err);
     }
-  }
+  };
 
   return (
     <>
@@ -190,17 +197,18 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
         </div>
         <div className="md:ml-20 md:mt-14 mt-1 font-sm ">
           <div className="flex md:gap-7 ">
-            {
-              friend?.isPremium?(
-            <div className="flex gap-2">
-                  <span className="mt-0.5">
-                  <MdVerified style={{color:'#4d6afa',fontSize:'20px'}}/>
+            {friend?.isPremium ? (
+              <div className="flex gap-2">
+                <span className="mt-0.5">
+                  <MdVerified style={{ color: "#4d6afa", fontSize: "20px" }} />
                 </span>
-                  <span className=" md:text-xl font-bold">{friend?.username}</span>
-            </div>
-              ):(<span className=" md:text-xl font-bold">{friend?.username}</span>)
-            }
-            
+                <span className=" md:text-xl font-bold">
+                  {friend?.username}
+                </span>
+              </div>
+            ) : (
+              <span className=" md:text-xl font-bold">{friend?.username}</span>
+            )}
 
             <span className=" text-sm  h-5 ml-10">
               {follow ? (
@@ -211,10 +219,10 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
                   Unfollow
                 </button>
               ) : accept ? (
-                <button className="bg-gradient-to-r from-fuchsia-600 to-fuchsia-900 px-10 py-3 rounded-full hover:bg-fuchsia-800 transition ease-in"
-                onClick={handleAccept}
+                <button
+                  className="bg-gradient-to-r from-fuchsia-600 to-fuchsia-900 px-10 py-3 rounded-full hover:bg-fuchsia-800 transition ease-in"
+                  onClick={handleAccept}
                 >
-                  
                   Accept
                 </button>
               ) : (

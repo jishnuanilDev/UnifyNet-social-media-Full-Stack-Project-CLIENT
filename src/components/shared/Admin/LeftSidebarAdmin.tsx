@@ -43,7 +43,7 @@ const AdminLeftSidebar: React.FC = () => {
           </div>
         </div>
 
-        <div className="ml-3.5 sm:ml-8 md:ml-14 cursor-pointer" onClick={()=>window.location.href = '/admin-panel'}>
+        <div className="ml-3.5 sm:ml-8 md:ml-14 cursor-pointer">
           <div className="mt-9  flex ">
             <span className="">
               <RiHome7Fill style={{ fontSize: "26px", color: "d55adb" }} />
@@ -55,12 +55,12 @@ const AdminLeftSidebar: React.FC = () => {
           </Link>
           </div>
 
-          <div className="mt-9  flex cursor-pointer" >
+          <div className="mt-9  flex cursor-pointer"   >
             <span className="">
               <FaPeopleGroup style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
           <Link href='/admin-panel/users'>
-              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block" onClick={()=>window.location.href = '/admin-panel/users'}>
+              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
                 User{" "}
               </span>
           </Link>
@@ -71,7 +71,7 @@ const AdminLeftSidebar: React.FC = () => {
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
            <Link href='/admin-panel/reported-post'>
-              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block"  onClick={()=>window.location.href = '/admin-panel/reported-post'}>
+              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block" >
                 Reported Posts{" "}
               </span>
            </Link>
@@ -82,13 +82,13 @@ const AdminLeftSidebar: React.FC = () => {
             <FaPeopleGroup style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
          <Link href='/admin-panel/premium-users'>
-              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block"  onClick={()=>window.location.href = '/admin-panel/premium-users'}>
+              <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
              Premium Users
               </span>
          </Link>
           </div>
 
-          <div className="mt-9  flex "onClick={()=>window.location.href = '/admin-panel/market-place'}>
+          <div className="mt-9  flex ">
             <span className="">
               <PiChatsCircleFill
                 style={{ fontSize: "26px", color: "d55adb" }}

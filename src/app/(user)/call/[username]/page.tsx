@@ -8,6 +8,7 @@ import GeminiButton from "@/components/buttons/GeminiButton";
 import io from "socket.io-client";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -23,14 +24,19 @@ const socketUrl: any ='https://unifynetserver.jisonline.site';
 const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
 const socket = io(webrtcSocketUrl);
 const ReadyToCallPage = ({ params }: { params: Params }) => {
+  const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
   useEffect(() => {
+    const userToken = localStorage.getItem('userToken');
+    if(!userToken) {
+      router.replace('/');
+    }
     const timer = setTimeout(() => {
       setShowComponent(true);
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [router]);
   socket.on("callEnded", () => {
     console.log("hello call ended in webrtc unifyNet");
     toast.success('Call Ended');

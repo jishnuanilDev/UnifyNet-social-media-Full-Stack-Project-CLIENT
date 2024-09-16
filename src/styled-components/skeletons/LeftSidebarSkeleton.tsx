@@ -57,7 +57,7 @@ const LeftSidebarSkeleton: React.FC = () => {
             <span className="mr-10  md:block"></span>
           </div>
 
-          <div className="mt-5  h-8  flex bg-white/20 animate-pulse  w-[150px] p-1 rounded-md cursor-pointer hover:bg-fuchsia-400 transition ease-in">
+          <div className="mt-5  h-8  bg-white/20 animate-pulse  w-[150px] p-1 rounded-md cursor-pointer hover:bg-fuchsia-400 transition ease-in md:block hidden">
             <span className=""></span>
             <span className=" ml-3 mt-1 text-sm font-sans font-bold animate-pulse md:bg-white/45 w-24 h-3 rounded-full">
             

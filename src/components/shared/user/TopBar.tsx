@@ -162,7 +162,7 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
       {loading ? <Spinner /> : null}
       <div className="bg-gradient-to-r from-sidebarBlack to-fuchsia-900/10 h-16  flex justify-end items-center gap-8">
         <div className="gap-4 flex">
-          <div className="w-[450px] ">
+          <div className="w-[450px] md:block hidden ">
             <input
               onChange={(e) => setSearchName(e.target.value)}
               value={searchName}
@@ -173,7 +173,7 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
           </div>
 
           <div
-            className="bg-midBlack px-2.5 py-2 rounded-full cursor-pointer"
+            className="bg-midBlack px-2.5 py-2 rounded-full cursor-pointer md:block hidden"
             onClick={handleSearch}
           >
             <BsSearch style={{ fontSize: "20px", color: "fuchsia" }} />
