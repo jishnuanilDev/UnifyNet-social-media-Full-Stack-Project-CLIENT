@@ -64,8 +64,12 @@ const ChatCard: React.FC<IChatProps> = ({ chat }) => {
   const [partnerId, setPartnerId] = useState<any>("");
 
   useEffect(() => {
-    const socketUrl: any = process.env.NEXT_PUBLIC_API_SOCKET_URL;
-    socket.current = io(socketUrl);
+    const socketUrl: any =process.env.NEXT_PUBLIC_API_SOCKET_URL_CHAT; 
+    // const socketUrl: any ='http://localhost:8000';
+    // socket.current = io(socketUrl);
+    socket.current = io(socketUrl,{
+      path: "/socket.io", // Ensure the correct path if you're using Nginx
+    });
     const recieverId = chat.participants.find((id) => id !== currentUserId);
     setPartnerId(recieverId);
     socket.current.emit("addUser", recieverId);

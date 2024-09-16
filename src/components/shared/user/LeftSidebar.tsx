@@ -8,7 +8,9 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { PiChatsCircleFill } from "react-icons/pi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { SiCodestream } from "react-icons/si";
+import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineOndemandVideo } from "react-icons/md";
+import { HiBadgeCheck } from "react-icons/hi";
 import { GiShop } from "react-icons/gi";
 import { AiOutlineLogout } from "react-icons/ai";
 import { CgDarkMode } from "react-icons/cg";
@@ -87,6 +89,15 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
     setLoading(true);
     router.push('/market-place')
   }
+
+  const handleProfile = () => {
+    try {
+      setLoading(true);
+      router.push("/profile");
+    } catch (err) {
+      console.error("Error occured in client side profile view", err);
+    }
+  };
   
   const handleDiscover = ()=>{
     const userToken = localStorage.getItem("userToken");
@@ -181,18 +192,18 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
             <span className="">
-              <SiCodestream style={{ fontSize: "26px", color: "d55adb" }} />
+              <HiBadgeCheck style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
             <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Not
+              Premium 
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
             <span className="">
-              <MdOutlineOndemandVideo
+              <FaUserAlt
                 style={{ fontSize: "26px", color: "d55adb" }}
               />
             </span>

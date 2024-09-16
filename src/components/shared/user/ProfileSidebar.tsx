@@ -8,6 +8,8 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { PiChatsCircleFill } from "react-icons/pi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { SiCodestream } from "react-icons/si";
+import { FaUserAlt } from "react-icons/fa";
+import { HiBadgeCheck } from "react-icons/hi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { GiShop } from "react-icons/gi";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -53,6 +55,15 @@ const ProfileSidebar: React.FC = () => {
       return;
     }
     router.push("/community");
+  };
+
+  const handleProfile = () => {
+    try {
+      setLoading(true);
+      router.push("/profile");
+    } catch (err) {
+      console.error("Error occured in client side profile view", err);
+    }
   };
 
   const handleChats = ()=>{
@@ -148,23 +159,23 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
             <span className="">
-              <SiCodestream style={{ fontSize: "26px", color: "d55adb" }} />
+              <HiBadgeCheck style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
             <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Go live
+              Premium 
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
             <span className="">
-              <MdOutlineOndemandVideo
+              <FaUserAlt
                 style={{ fontSize: "26px", color: "d55adb" }}
               />
             </span>
             <span className="flex-1 ml-3 mt-1 text-sm hidden md:block">
-              Video
+              Profile
             </span>
           </div>
 

@@ -33,6 +33,7 @@ interface ICommunity {
 }
 
 const initialState: ICommunity | null = null;
+
 const communitySlice = createSlice({
   name: "community",
   initialState,

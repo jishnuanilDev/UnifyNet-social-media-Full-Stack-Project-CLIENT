@@ -28,8 +28,12 @@ interface videoCallLayoutProps {
   setCallerSignal: React.Dispatch<React.SetStateAction<boolean>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
 }
+
 const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
-const socket = io(webrtcSocketUrl);
+
+const socket = io(webrtcSocketUrl,{
+  path: "/webrtcSocket.io",
+});
 const VideoCallLayout: React.FC<videoCallLayoutProps> = ({
   currentUsername,
   setVideoLayout,

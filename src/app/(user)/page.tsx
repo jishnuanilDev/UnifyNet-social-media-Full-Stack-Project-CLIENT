@@ -17,9 +17,12 @@ const PostBox = dynamic(() => import("@/components/shared/user/PostBox"), {
   loading: () => <PostBoxSkeleton />,
   ssr: false,
 });
-const HomeBreadcrumbs = dynamic(() => import("@/components/breadcrumbs/HomePage"), {
-  ssr: false,
-});
+const HomeBreadcrumbs = dynamic(
+  () => import("@/components/breadcrumbs/HomePage"),
+  {
+    ssr: false,
+  }
+);
 const Topbar = dynamic(() => import("@/components/shared/user/TopBar"), {
   loading: () => <TopBarSkeleton />,
   ssr: false,
@@ -71,7 +74,7 @@ interface Ipost {
   likes: string[];
   createdAt: Date;
 }
-const chatSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_CHAT
+const chatSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_CHAT;
 const socket = io(chatSocketUrl);
 function Home() {
   const [postStep, setPostStep] = useState(0);
@@ -80,7 +83,6 @@ function Home() {
   const [update, setUpdate] = useState(false);
   // const [loading, setLoading] = useState(true);
   const router = useRouter();
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -107,7 +109,7 @@ function Home() {
       }
     };
     fetchUserData();
-  }, [postStep,router]);
+  }, [postStep, router]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -130,7 +132,7 @@ function Home() {
         <LeftSidebar setPostStep={setPostStep} postStep={postStep} />
 
         {user ? <Topbar user={user} /> : <Topbar />}
-        <HomeBreadcrumbs/>
+        <HomeBreadcrumbs />
         <NewPostModal postStep={postStep} setPostStep={setPostStep} />
         <div className="w-[500px] relative hidden">
           <div className="fixed top-0 left-0 w-full h-full bg-black/25 bg-opacity-50 backdrop-blur-sm z-40"></div>
@@ -193,7 +195,7 @@ function Home() {
           </div>
         </div>
 
-        <main className="ml-14 grid grid-cols-1 h-screen scrollbar-hide  overflow-y-auto overflow-x-hidden ">
+        <main className="ml-14  grid grid-cols-1 h-screen scrollbar-thin scrollbar-thumb-fuchsia-950 scrollbar-track-neutral-800  overflow-y-auto overflow-x-hidden ">
           {posts && posts.length >= 1 ? (
             posts.map((post, index) => (
               <PostBox
@@ -218,11 +220,11 @@ function Home() {
               </div>
             </>
           )}
-        </main>
 
-        <footer className="mt-8 h-10 w-full bg-black">
-          <div></div>
-        </footer>
+        </main>
+        <footer className="mt-8 h-10 w-full">
+            <div className="">hai</div>
+          </footer>
       </div>
     </div>
   );

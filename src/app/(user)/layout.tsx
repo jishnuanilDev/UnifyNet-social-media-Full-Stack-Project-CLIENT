@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-
 import "@/styles/globals.css";
 import { Metadata } from 'next'
 import ReduxProvider from '@/utils/ReduxProvider';

@@ -2,7 +2,7 @@
 import "@/styles/globals.css";
 const PostBoxSkeleton: React.FC = () => {
   return (
-    <div>
+    <div className="mb-7">
       <section className="container  bg-postBox md:w-[500px] w-[310px] md:h-[650px] flex mt-[30px] rounded-lg md:ml-[250px] ml-[10px]">
         <div className="container">
           <div className="flex  mt-3 md:ml-5 animate-pulse">

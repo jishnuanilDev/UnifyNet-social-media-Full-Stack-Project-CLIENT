@@ -268,9 +268,9 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
     }
   };
   return (
-    <div>
+    <div className="mb-7">
       <Toaster />
-      <section className="container  bg-postBox md:w-[500px] w-[310px] md:h-[650px] flex mt-[30px] rounded-lg md:ml-[250px] ml-[10px]">
+      <section className="container  bg-postBox md:w-[500px] w-[310px] md:h-[650px] flex  rounded-lg md:ml-[250px] ml-[10px]">
         <div className="container">
           <CommentModal
             setUpdate={setUpdate}

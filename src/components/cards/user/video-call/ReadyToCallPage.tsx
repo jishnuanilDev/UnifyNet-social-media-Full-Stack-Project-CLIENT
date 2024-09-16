@@ -22,7 +22,9 @@ interface Params {
   username: string;
 }
 const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
-const socket = io(webrtcSocketUrl);
+const socket = io(webrtcSocketUrl,{
+  path: "/webrtcSocket.io",
+});
 const ReadyToCallLayout = ({ params }: { params: Params }) => {
   const [videoLayout, setVideoLayout] = useState(false);
   const [me, setMe] = useState("");

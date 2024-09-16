@@ -71,6 +71,6 @@ const config: Config = {
     },
     transform: ['hover', 'focus'],
   },
-  plugins: [nextui(), require('flowbite/plugin')],
+  plugins: [nextui(), require('flowbite/plugin'),require('tailwind-scrollbar')],
 };
 export default config;

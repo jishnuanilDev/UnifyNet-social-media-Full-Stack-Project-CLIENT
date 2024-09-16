@@ -16,6 +16,10 @@ const Toaster = dynamic(
 interface Params {
   username: string;
 }
+const socketUrl: any ='https://unifynetserver.jisonline.site'; 
+// const socketUrl: any ='http://localhost:8000'; 
+// socket.current = io(socketUrl); socket.current = io(socketUrl,{ path: "/socket.io", // Ensure the correct path if you're using Nginx });
+
 const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
 const socket = io(webrtcSocketUrl);
 const ReadyToCallPage = ({ params }: { params: Params }) => {

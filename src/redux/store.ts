@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import communityReducer from './communitySlice';
+import userReducer from './userSlice';
+
 
 
 export const store = configureStore({
     reducer: {
       community: communityReducer,
+      user:userReducer
     },
   });
 
