@@ -142,7 +142,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
 
         <div className="ml-3.5 sm:ml-8 md:ml-14 ">
           <div
-            className="mt-9  flex cursor-pointer "
+            className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1 "
             onClick={() => router.push("/")}
           >
             <span className="">
@@ -153,7 +153,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer "  onClick={handleDiscover}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  "  onClick={handleDiscover}>
             <span className="">
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -162,7 +162,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleStep}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleStep}>
             <span className="">
               <AiFillPlusCircle style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -172,7 +172,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleChats}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleChats}>
             <span className="">
               <PiChatsCircleFill
                 style={{ fontSize: "26px", color: "d55adb" }}
@@ -183,7 +183,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
           
-          <div className="mt-9 flex cursor-pointer "  onClick={handleCommunity}>
+          <div className="mt-6 flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1   "  onClick={handleCommunity}>
             <span className="">
               <FaPeopleGroup style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -192,7 +192,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1   " onClick={handleProfile}>
             <span className="">
               <HiBadgeCheck style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -201,7 +201,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1   " onClick={handleProfile}>
             <span className="">
               <FaUserAlt
                 style={{ fontSize: "26px", color: "d55adb" }}
@@ -212,7 +212,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-9 mb-14 flex cursor-pointer  " onClick={handleMarketPlace}>
+          <div className="mt-6 mb-14 flex cursor-pointer  hover:bg-fuchsia-900/55 rounded-lg mr-2  py-2 px-1   " onClick={handleMarketPlace}>
             <span className="">
               <GiShop style={{ fontSize: "26px", color: "#d55adb" }} />
             </span>
@@ -221,7 +221,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-    <div className="mt-24">
+    <div className="mt-20">
             <div className="mt-14 md:mb-8 flex cursor-pointer ">
               <span className="hidden md:block">
                 <CgDarkMode style={{ fontSize: "26px" }} />

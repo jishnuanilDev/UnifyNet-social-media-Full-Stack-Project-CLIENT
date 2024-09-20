@@ -101,7 +101,7 @@ router.push('/');
 
         <div className="ml-3.5 sm:ml-8 md:ml-14 ">
           <div
-            className="mt-9  flex cursor-pointer "
+            className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1 "
             onClick={handleHome}
           >
             <span className="">
@@ -113,7 +113,7 @@ router.push('/');
           </div>
 
 
-          <div className="mt-9  flex cursor-pointer ">
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  ">
             <span className="">
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -122,7 +122,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer">
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1 ">
             <span className="">
               <AiFillPlusCircle style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -131,7 +131,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer "  onClick={handleChats}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  "  onClick={handleChats}>
             <span className="">
               <PiChatsCircleFill
                 style={{ fontSize: "26px", color: "d55adb" }}
@@ -142,7 +142,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9 flex cursor-pointer " onClick={handleCommunity}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleCommunity}>
             <span className="">
               <FaPeopleGroup style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -151,7 +151,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleProfile}>
             <span className="">
               <HiBadgeCheck style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -160,7 +160,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer " onClick={handleProfile}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleProfile}>
             <span className="">
               <FaUserAlt
                 style={{ fontSize: "26px", color: "d55adb" }}
@@ -171,7 +171,7 @@ router.push('/');
             </span>
           </div>
 
-          <div className="mt-9  flex cursor-pointer  ">
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  ">
             <span className="">
               <GiShop style={{ fontSize: "26px", color: "#d55adb" }} />
             </span>
@@ -180,7 +180,7 @@ router.push('/');
             </span>
           </div>
 
- <div className="mt-24">
+ <div className="mt-20">
             <div className="mt-14  flex cursor-pointer ">
               <span className="hidden md:block">
                 <CgDarkMode style={{ fontSize: "26px" }} />

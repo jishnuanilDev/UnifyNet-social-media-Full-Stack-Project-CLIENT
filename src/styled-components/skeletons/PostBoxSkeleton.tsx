@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 const PostBoxSkeleton: React.FC = () => {
   return (
     <div className="mb-7">
-      <section className="container  bg-postBox md:w-[500px] w-[310px] md:h-[650px] flex mt-[30px] rounded-lg md:ml-[250px] ml-[10px]">
+      <section className="container  bg-midBlack md:w-[500px] w-[310px] md:h-[650px] flex mt-[30px] rounded-lg md:ml-[250px] ml-[10px]">
         <div className="container">
           <div className="flex  mt-3 md:ml-5 animate-pulse">
             {/* avatar */} <span className=" ml-2 md:ml-0 mr-4 bg-white/45 h-6 w-6 rounded-full"></span>
