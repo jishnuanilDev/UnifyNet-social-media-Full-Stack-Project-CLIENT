@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import "@/styles/globals.css";
 import axiosInstance from "@/configs/axiosInstance";
+import { NextUIProvider } from "@nextui-org/react";
 import ProfileCardSkeleton from "@/styled-components/skeletons/ProfileCardSkeleton";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
 const ProfileSidebar = dynamic(() => import('@/components/shared/user/ProfileSidebar'),
@@ -101,6 +102,7 @@ useEffect(()=>{
 },[params,router]);
 
   return (
+    <NextUIProvider>
     <div>
       <div className=" h-screen overflow-hidden">
         <ProfileSidebar />
@@ -113,6 +115,7 @@ useEffect(()=>{
         </main>
       </div>
     </div>
+    </NextUIProvider>
   );
 };
 

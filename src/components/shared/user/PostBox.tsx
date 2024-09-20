@@ -8,7 +8,7 @@ import { RiShareForwardFill } from "react-icons/ri";
 import { format } from "timeago.js";
 import Avatar from "@mui/material/Avatar";
 import { HiDotsVertical } from "react-icons/hi";
-import Image from 'next/image';
+import Image from "next/image";
 import { FaLocationArrow } from "react-icons/fa6";
 import CommentModal from "@/utils/CommentModal";
 import ReportModal from "@/utils/ReportModal";
@@ -69,13 +69,15 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
   const [liked, setLiked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [like,setLike] = useState(0);
   const [commentModal, setCommentModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
   const [saved, setSaved] = useState(false);
   const [comment, setComment] = useState("");
 
   const socket = useRef(null);
-  const notificationSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION
+  const notificationSocketUrl =
+    process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION;
   socket.current = io(notificationSocketUrl);
   useEffect(() => {
     if (post.likes && user) {
@@ -91,7 +93,7 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
         setLiked(true);
       }
     }
-  }, [likes, post,user]);
+  }, [post, user]);
 
   const handleLike = () => {
     const userToken = localStorage.getItem("userToken");
@@ -99,18 +101,19 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
       return;
     }
     setLiked(!liked);
-    setUpdate(!update);
+    // setUpdate(!update);
   };
 
   const submitLike = () => {
     try {
-      // setLiked(!liked);
+      // setLiked(true);
       const userToken = localStorage.getItem("userToken");
       if (!userToken) {
         toast.error("Sign in Required");
         return;
       }
       const postId = post._id;
+      setLikes(likes+1);
       const response = axiosInstance.post(
         "/like-post",
         { postId },
@@ -130,12 +133,12 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
   };
   const removeLike = () => {
     try {
-      // setLiked(!liked);
+      // setLiked(false);
       const userToken = localStorage.getItem("userToken");
       if (!userToken) {
         toast.error("Sign in Required");
         return;
-      }
+      }  setLikes(likes-1);
       const postId = post._id;
       const response = axiosInstance.post(
         "/unLike-post",
@@ -270,7 +273,7 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
   return (
     <div className="mb-7">
       <Toaster />
-      <section className="container  bg-postBox md:w-[500px] w-[310px] md:h-[650px] flex  rounded-lg md:ml-[250px] ml-[10px]">
+      <section className="container  bg-midBlack md:w-[500px] w-[310px] md:h-[650px] flex  rounded-lg md:ml-[250px] ml-[10px]">
         <div className="container">
           <CommentModal
             setUpdate={setUpdate}
@@ -300,16 +303,13 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
               )}
             </span>
 
-              <span className="md:text-sm text-[10px] font-sans font-medium md:mt-0 mt-1">
-                {post.user?.username}
-              </span>
-  
-       
-                <span className="md:text-[12px]  text-[8px]  md:mt-1 ml-1 mt-1.5 text-white/60 whitespace-nowrap">
-                . {format(post.createdAt)}
-                </span>
+            <span className="md:text-sm text-[10px] font-sans font-medium md:mt-0 mt-1">
+              {post.user?.username}
+            </span>
 
-     
+            <span className="md:text-[12px]  text-[8px]  md:mt-1 ml-1 mt-1.5 text-white/60 whitespace-nowrap">
+              . {format(post.createdAt)}
+            </span>
 
             <span
               className="text-sm font-sans ml-[150px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"

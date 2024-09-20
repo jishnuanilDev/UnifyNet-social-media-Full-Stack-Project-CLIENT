@@ -180,7 +180,7 @@ const UserPostBox: React.FC<PostProps> = ({
   return (
     <div>
       <Toaster />
-      <section className="container  bg-postBox md:w-[500px] w-[280px] md:h-[650px] flex mt-[30px] rounded-lg md:ml-[250px] ml-[20px]">
+      <section className="container  bg-postBox md:w-[500px] w-[280px] md:h-[650px] flex mt-[30px] rounded-lg  ml-[20px]">
         <div className="container">
           <CommentModal
             commentModal={commentModal}
@@ -191,7 +191,7 @@ const UserPostBox: React.FC<PostProps> = ({
 
           <div className="flex  mt-3 ml-5">
             <span className="md:text-sm text-[10px] font-sans font-medium">
-            {user?.username}
+            {userPost.user.username}
             </span>
             <span className="md:text-sm text-[10px] font-sans md:ml-2">
               .{" "}

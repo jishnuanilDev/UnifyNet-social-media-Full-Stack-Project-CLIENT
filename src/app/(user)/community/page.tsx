@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
+import { NextUIProvider } from "@nextui-org/react";
 const ProfileSidebar = dynamic(() => import("@/components/shared/user/ProfileSidebar"), {
   loading: () => <LeftSidebarSkeleton/>,
   ssr: false,
@@ -68,12 +69,14 @@ if(!userToken){
 }
  },[router])
   return (
+    <NextUIProvider>
     <div className="flex">
       <ProfileSidebar />
       {reduxCommunity?(<CommunityChatCard msg={msg} community={reduxCommunity} />):(<NoCommunityLayout />) }
 
       <CommunityUsers setMsg={setMsg} />
     </div>
+    </NextUIProvider>
   );
 }
 

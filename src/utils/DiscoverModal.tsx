@@ -61,7 +61,7 @@ interface PostProps {
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UserPostModal: React.FC<PostProps> = ({
+const DiscoverPostModal: React.FC<PostProps> = ({
   postImg,
   user,
   userPost,
@@ -70,17 +70,17 @@ const UserPostModal: React.FC<PostProps> = ({
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
-    <div >
-      <div className="w-80 h-80 bg-gray-300 rounded-lg" onClick={onOpen}>
-        <img
-          className="w-full h-full rounded-lg object-cover"
-          src={userPost.image.url}
-          alt="img"
-        />
+    <div className="">
+      <div className="w-70 h-96 bg-gray-300" onClick={onOpen}>
+      <img
+                className="w-full h-full  object-cover"
+                src={userPost.image.url}
+                alt="img"
+              />
       </div>
   
       <Modal
-        className="bg-sidebarBlack/30"
+        className="bg-sidebarBlack/10 "
         backdrop="opaque"
         isOpen={isOpen}
         size="xl"
@@ -131,4 +131,4 @@ const UserPostModal: React.FC<PostProps> = ({
   );
 };
 
-export default UserPostModal;
+export default DiscoverPostModal;

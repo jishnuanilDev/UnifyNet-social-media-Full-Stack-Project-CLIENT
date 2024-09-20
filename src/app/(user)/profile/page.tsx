@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import "@/styles/globals.css";
 import ProfileCardSkeleton from "@/styled-components/skeletons/ProfileCardSkeleton";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
+import { NextUIProvider } from "@nextui-org/react";
 const ProfileCard = dynamic(
   () => import("@/components/cards/user/profiles/ProfileCard"),
   {
@@ -22,6 +23,7 @@ const UserPosts = dynamic(() => import("@/components/cards/user/profiles/UserPos
 
 const Profile: React.FC = () => {
   return (
+    <NextUIProvider>
     <div>
       <div className=" h-screen overflow-hidden scrollbar-hide">
         <ProfileSidebar />
@@ -34,6 +36,7 @@ const Profile: React.FC = () => {
         </main>
       </div>
     </div>
+    </NextUIProvider>
   );
 };
 

@@ -10,7 +10,7 @@ const PostBox = dynamic(() => import("@/components/shared/user/PostBox"), {
   loading: () => <p>Loading Post Box...</p>, // Optional loading component
 });
 
-const UserPostModal = dynamic(() => import("@/utils/UserPostModal"), {
+const DiscoverPostModal = dynamic(() => import("@/utils/DiscoverModal"), {
   loading: () => <p>Loading Post Modal...</p>, // Optional loading component
 });
 interface IUser {
@@ -85,21 +85,17 @@ const DiscoverPage: React.FC = () => {
           {Posts.map((userPost, index) => (
             <div
             key={index}
-              className="w-70 h-96 bg-gray-300"
+              className="w-70 h-96 bg-gray-300  mt-2"
               onClick={() => setUpdate(true)}
             >
-              <UserPostModal
+              <DiscoverPostModal
                 postImg={userPost.image.url}
                 user={user}
                 userPost={userPost}
                 update={update}
                 setUpdate={setUpdate}
               />
-              <img
-                className="w-full h-full  object-cover"
-                src={userPost.image.url}
-                alt="img"
-              />
+       
             </div>
           ))}
         </div>

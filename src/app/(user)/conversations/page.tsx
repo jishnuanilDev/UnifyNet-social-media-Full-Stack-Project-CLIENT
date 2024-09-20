@@ -6,7 +6,7 @@ import NoChatLayout from "@/components/cards/user/chat/individual/NoChatLayout";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/configs/axiosInstance";
-
+import { NextUIProvider } from "@nextui-org/react";
 interface IUser {
   _id: string;
   fullname: string;
@@ -67,12 +67,14 @@ function Conversation() {
     fetchProfile();
   }, [router]);
   return (
+    <NextUIProvider>
     <div className="flex">
       <ProfileSidebar />
       {chat?(<ChatCard chat={chat} />):(<NoChatLayout />) }
 
       <ChatUsers setChat={setChat} user={user}  />
     </div>
+    </NextUIProvider>
   );
 }
 

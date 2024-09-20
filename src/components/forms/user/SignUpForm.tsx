@@ -1,12 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 import axios from "axios";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/configs/axiosInstance";
 import { Toaster, toast } from "react-hot-toast";
+import { BsFillEyeFill } from "react-icons/bs";
+import { BsFillEyeSlashFill } from "react-icons/bs";
 
 import OtpForm from "./OtpForm";
 
@@ -16,6 +18,8 @@ const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<{
     all?: string;
     fullname?: string;
@@ -27,7 +31,7 @@ const SignUpForm: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   useEffect(() => {
     console.log("token verifying");
-    const userToken = localStorage.getItem('userToken');
+    const userToken = localStorage.getItem("userToken");
     if (userToken) {
       router.replace("/");
     }
@@ -63,6 +67,13 @@ const SignUpForm: React.FC = () => {
     } else {
       setErrors({});
     }
+  };
+
+  const handleTogglePass = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleToggleConfirm = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
   const handleSignUp = async (e: React.FormEvent) => {
     try {
@@ -146,37 +157,63 @@ const SignUpForm: React.FC = () => {
                     <p style={{ color: "red" }}>{errors.email}</p>
                   )}
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex">
                   <input
                     onClick={handleChange}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="w-full h-12 rounded-md p-2 border-0  bg-zinc-800"
                     id="password"
                     placeholder="Password"
                   />
-                  {errors.password && (
-                    <p style={{ color: "red" }}>{errors.password}</p>
-                  )}
-                  {errors.strongPassword && (
-                    <p style={{ color: "red" }}>{errors.strongPassword}</p>
-                  )}
+                  <span
+                    className="flex justify-around items-center"
+                    // Position the icon
+                    onClick={handleTogglePass}
+                  >
+                    {showPassword ? (
+                      <BsFillEyeFill className="absolute mr-10" />
+                    ) : password.length >= 1 ? (
+                      <BsFillEyeSlashFill className="absolute mr-10" />
+                    ) : (
+                      ""
+                    )}
+                  </span>
                 </div>
-                <div className="mb-4">
+                {errors.password && (
+                  <p style={{ color: "red" }}>{errors.password}</p>
+                )}
+                {errors.strongPassword && (
+                  <p style={{ color: "red" }}>{errors.strongPassword}</p>
+                )}
+                <div className="mb-4 flex">
                   <input
                     onClick={handleChange}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     className="w-full h-12 rounded-md p-2 border-0  bg-zinc-800"
                     id="confirmPassword"
                     placeholder="Confirm Password"
                   />
-                  {errors.confirmPassword && (
-                    <p style={{ color: "red" }}>{errors.confirmPassword}</p>
-                  )}
+                  <span
+                    className="flex justify-around items-center"
+                    // Position the icon
+                    onClick={handleToggleConfirm}
+                  >
+                    {showConfirmPassword ? (
+                      <BsFillEyeFill className="absolute mr-10" />
+                    ) : confirmPassword.length >= 1 ? (
+                      <BsFillEyeSlashFill className="absolute mr-10" />
+                    ) : (
+                      ""
+                    )}
+                  </span>
                 </div>
+                {errors.confirmPassword && (
+                  <p style={{ color: "red" }}>{errors.confirmPassword}</p>
+                )}
                 <div className="w-full">
                   <button className="w-full bg-purple-600 h-10 rounded-md font-bold p-2 hover:bg-purple-700 transition ease-linear">
                     Signup

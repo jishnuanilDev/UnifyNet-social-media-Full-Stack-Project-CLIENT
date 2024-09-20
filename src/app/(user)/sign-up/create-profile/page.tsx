@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../styles/globals.css";
 import dynamic from "next/dynamic";
-
+import { NextUIProvider } from "@nextui-org/react";
 const ProfileForm = dynamic(
   () => import("@/components/forms/user/ProfileForm"),
   {
@@ -16,7 +16,9 @@ export const metadata = {
 const CreateProfile: React.FC = () => {
   return (
     <div>
+      <NextUIProvider>
       <ProfileForm />
+      </NextUIProvider>
     </div>
   );
 };

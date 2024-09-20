@@ -1,16 +1,16 @@
-/* eslint-disable react/react-in-jsx-scope */
 import "@/styles/globals.css";
-import { Metadata } from 'next'
-import ReduxProvider from '@/utils/ReduxProvider';
- 
-export const metadata: Metadata = {
-  title: 'UnifyNet',
-  description: 'unifynet social media application',
-}
+import { Metadata } from "next";
+import ReduxProvider from "@/utils/ReduxProvider";
+import Providers from "./providers";
 import { Inter } from "next/font/google";
 
+// Set up metadata for the app
+export const metadata: Metadata = {
+  title: "UnifyNet",
+  description: "UnifyNet social media application",
+};
 
-
+// Load the Inter font from Google Fonts
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -20,14 +20,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-  <head>
-       
-      </head>
       <body className={inter.className}>
-        <ReduxProvider >
-        {children}
-        </ReduxProvider>
-  
+        <Providers> {children}</Providers>
       </body>
     </html>
   );

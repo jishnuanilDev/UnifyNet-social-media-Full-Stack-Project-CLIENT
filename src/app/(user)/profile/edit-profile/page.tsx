@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import "@/styles/globals.css";
 import dynamic from "next/dynamic";
+import { NextUIProvider } from "@nextui-org/react";
 const EditProfile = dynamic(
   () => import("@/components/forms/user/EditProfile"),
   {
@@ -16,6 +17,7 @@ const LeftSidebar = dynamic(
 
 export default function EditProfilePage() {
   return (
+    <NextUIProvider>
     <div>
       <Suspense>
         <LeftSidebar />
@@ -23,5 +25,6 @@ export default function EditProfilePage() {
 
       <EditProfile />
     </div>
+    </NextUIProvider>
   );
 }

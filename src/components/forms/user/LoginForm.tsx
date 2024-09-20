@@ -3,24 +3,29 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { BsFillEyeFill } from "react-icons/bs";
+import { BsFillEyeSlashFill } from "react-icons/bs";
 import axiosInstance from "@/configs/axiosInstance";
 const LoginForm: React.FC = () => {
   const router = useRouter();
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [errors, setErrors] = useState<{
+    email?: string;
+    error?: string;
+    password?: string;
+  }>({});
   useEffect(() => {
+   
     const token = localStorage.getItem("userToken");
     console.log("token verifying");
     if (token) {
       router.replace("/");
     }
   }, [router]);
-
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<{
-    email?: string;
-    error?: string;
-    password?: string;
-  }>({});
 
   const validate = () => {
     const newErrors: typeof errors = {};
@@ -52,15 +57,14 @@ const LoginForm: React.FC = () => {
         })
         .then((res) => {
           console.log("its back....", res.data);
-          if(res.data.userIsBlocked){
-            toast.error('Your account temporarily blocked by admin');
+          if (res.data.userIsBlocked) {
+            toast.error("Your account temporarily blocked by admin");
             return;
           }
           localStorage.setItem("userToken", res.data.userToken);
           // localStorage.setItem('user',)
-            // router.replace("/");
-            window.location.href = '/'
-        
+          router.replace("/");
+          // window.location.href = "/";
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -70,9 +74,13 @@ const LoginForm: React.FC = () => {
       console.error("Error occurred during login:", error);
     }
   };
+  const handleToggle = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div>
+   
       <main className="flex flex-col md:flex-row  min-h-screen container w-full">
         <section className=" w-full sm:w-full md:w-[1000px] mt-4 md:mt-[200px]  md:ml-[100px] p-6 rounded-md shadow-lg ">
           <div>
@@ -94,16 +102,27 @@ const LoginForm: React.FC = () => {
                   placeholder="Email"
                 />
               </div>
-              <div className="mb-4 ">
+              <div className="mb-4 flex">
                 <input
                   onClick={handleChange}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="w-full h-12 rounded-md p-2   bg-zinc-800  border-0"
                   id="password"
                   placeholder="Password"
                 />
+                <span
+                className="flex justify-around items-center"
+                 // Position the icon
+                  onClick={handleToggle}
+                >
+                  {showPassword ? (
+                    <BsFillEyeFill  className="absolute mr-10"   />
+                  ) :password.length>=1 ? (
+                    <BsFillEyeSlashFill   className="absolute mr-10" />
+                  ):''}
+                </span>
               </div>
               <div className="w-full">
                 <button className="w-full bg-purple-600 h-10 rounded-md font-bold p-2 hover:bg-purple-700 transition ease-linear ">
@@ -133,7 +152,7 @@ const LoginForm: React.FC = () => {
         </section>
 
         <section className="w-full  mt-8  ml-4 p-6 relative bg-gradient-to-r">
-          <img 
+          <img
             src="https://wallpapergod.com/images/hd/dark-abstract-1920X1080-wallpaper-o2ijsiig93s3xwvy.jpeg"
             alt="Banner Image"
             className="w-full  h-full object-cover rounded-md shadow-lg min-h-0"

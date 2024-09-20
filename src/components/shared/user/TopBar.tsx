@@ -160,7 +160,7 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
       />
       <Toaster />
       {loading ? <Spinner /> : null}
-      <div className="bg-gradient-to-r from-sidebarBlack to-fuchsia-900/10 h-16  flex justify-end items-center gap-8">
+      <div className="bg-gradient-to-r from-sidebarBlack to-fuchsia-900/10 dark:from-black dark:to-fuchsia-900/10 h-16 flex justify-end items-center gap-8">
         <div className="gap-4 flex">
           <div className="w-[450px] md:block hidden ">
             <input

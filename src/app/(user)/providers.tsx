@@ -1,5 +1,5 @@
 // app/redux/ReduxProvider.tsx
-"use client";
+"use client"
 import * as React from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { Provider } from "react-redux";
@@ -9,12 +9,12 @@ interface ReduxProviderProps {
   children: React.ReactNode;
 }
 
-const ReduxProvider: React.FC<ReduxProviderProps> = ({ children }) => {
+const Providers: React.FC<ReduxProviderProps> = ({ children }) => {
   return (
     <Provider store={store}>
-      <NextUIProvider>{children}</NextUIProvider>
+     {children}
     </Provider>
   );
 };
 
-export default ReduxProvider;
+export default Providers;

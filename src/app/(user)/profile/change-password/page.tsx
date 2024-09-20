@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import '@/styles/globals.css'
 import dynamic from "next/dynamic";
+import { NextUIProvider } from "@nextui-org/react";
 import rg from '@/components/forms/user/ChangePasword'
 import { useRouter } from 'next/navigation';
 const LeftSidebar = dynamic(()=>import('@/components/shared/user/LeftSidebar'))
@@ -15,10 +16,12 @@ function ChangePasswordPage() {
     }
      },[router])
   return (
+    <NextUIProvider>
     <div>
        <LeftSidebar />
       <ChangePassword/>
     </div>
+    </NextUIProvider>
   )
 }
 

@@ -9,6 +9,7 @@ import io from "socket.io-client";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { NextUIProvider } from "@nextui-org/react";
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -17,19 +18,19 @@ const Toaster = dynamic(
 interface Params {
   username: string;
 }
-const socketUrl: any ='https://unifynetserver.jisonline.site'; 
-// const socketUrl: any ='http://localhost:8000'; 
+const socketUrl: any = "https://unifynetserver.jisonline.site";
+// const socketUrl: any ='http://localhost:8000';
 // socket.current = io(socketUrl); socket.current = io(socketUrl,{ path: "/socket.io", // Ensure the correct path if you're using Nginx });
 
-const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC
+const webrtcSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_WEBRTC;
 const socket = io(webrtcSocketUrl);
 const ReadyToCallPage = ({ params }: { params: Params }) => {
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
   useEffect(() => {
-    const userToken = localStorage.getItem('userToken');
-    if(!userToken) {
-      router.replace('/');
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      router.replace("/");
     }
     const timer = setTimeout(() => {
       setShowComponent(true);
@@ -39,25 +40,26 @@ const ReadyToCallPage = ({ params }: { params: Params }) => {
   }, [router]);
   socket.on("callEnded", () => {
     console.log("hello call ended in webrtc unifyNet");
-    toast.success('Call Ended');
+    toast.success("Call Ended");
   });
-
 
   return (
     <>
-      <div>
-        {showComponent ? (
-     <>
-            <ReadyToCallLayout params={params} />
-     </>
-        ) : (
-          // Optional: Display a loader or placeholder while waiting
-          <div className="w-screen h-screen">
-            {" "}
-            <Spinner />
-          </div>
-        )}
-      </div>
+      <NextUIProvider>
+        <div>
+          {showComponent ? (
+            <>
+              <ReadyToCallLayout params={params} />
+            </>
+          ) : (
+            // Optional: Display a loader or placeholder while waiting
+            <div className="w-screen h-screen">
+              {" "}
+              <Spinner />
+            </div>
+          )}
+        </div>
+      </NextUIProvider>
     </>
   );
 };
