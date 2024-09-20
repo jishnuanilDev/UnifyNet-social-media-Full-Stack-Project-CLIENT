@@ -101,7 +101,7 @@ const SuggestionBox: React.FC<PostProps> = () => {
 
         {users.length >= 1 ? (
           users.map((user, index) => (
-            <div className="flex items-center justify-between mb-4">
+            <div key={index} className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-8">
                 <div className="w-12 h-12 rounded-full bg-white">
                   <img
