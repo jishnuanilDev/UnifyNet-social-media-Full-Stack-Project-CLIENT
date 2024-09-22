@@ -20,7 +20,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import dynamic from "next/dynamic";
 import Spinner from "@/styled-components/loader/Spinner";
-
    
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
@@ -49,6 +48,7 @@ const ProfileSidebar: React.FC = () => {
   };
 
   const handleCommunity = () => {
+    setLoading(true);
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
       toast.error("Sign-in Required");
@@ -75,10 +75,16 @@ const ProfileSidebar: React.FC = () => {
     router.push('/conversations');
   }
 
+  const   handleDiscover = ()=>{
+    setLoading(true);
+    router.push('/discover');
+      }
   const handleHome = ()=>{
 setLoading(true);
 router.push('/');
   }
+
+
   return (
     <div className="bg-sidebarBlack h-screen md:w-[250px] w-[50px] float-left md:mr-10 mr-3 ">
       <div>
@@ -113,7 +119,7 @@ router.push('/');
           </div>
 
 
-          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  ">
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleDiscover}>
             <span className="">
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>

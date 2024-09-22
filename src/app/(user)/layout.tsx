@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { Metadata } from "next";
 import ReduxProvider from "@/utils/ReduxProvider";
 import Providers from "./providers";
+
 import { Inter } from "next/font/google";
 
 // Set up metadata for the app
@@ -20,6 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/images/default-photoaidcom-cropped (1).png" />
+      </head>
       <body className={inter.className}>
         <Providers> {children}</Providers>
       </body>

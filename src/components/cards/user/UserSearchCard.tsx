@@ -9,6 +9,7 @@ interface IUser {
   bio: string;
   email: string;
   isPremium: boolean;
+  profilePic:string;
   // Add other properties as needed
 }
 interface ISearchCardProps {
@@ -77,7 +78,7 @@ const UserSearchCard: React.FC<ISearchCardProps> = ({
                           <div className="flex ">
                             <Avatar
                               alt="Remy Sharp"
-                              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                              src={user.profilePic}
                             />
                             <span className="mt-0.5 ml-2">
                               <MdVerified
@@ -92,7 +93,7 @@ const UserSearchCard: React.FC<ISearchCardProps> = ({
                           <div className="flex ">
                             <Avatar
                               alt="Remy Sharp"
-                              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                              src={user.profilePic}
                             />
                             <span className="flex-1 ms-3 whitespace-nowrap">
                               {user.username}

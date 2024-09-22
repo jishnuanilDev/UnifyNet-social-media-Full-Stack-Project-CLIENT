@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditProductForm from "@/components/forms/user/EditProductForm";
 import axiosInstance from "@/configs/axiosInstance";
 import Image from 'next/image';
-function UserListCard({ list }) {
+function UserListCard({ list,setUpdate }) {
   const [sold, setSold] = useState(false);
   const handleSold = async () => {
     try {
@@ -25,7 +25,7 @@ function UserListCard({ list }) {
     }
   };
   return (
-    <div className="w-70 h-80 bg-white/5 rounded-xl  ">
+    <div className="w-70 h-96 bg-white/5 rounded-xl  ">
       <div className="bg-black h-44 w-64 rounded-lg mt-4 mx-auto">
         <img
           className="object-cover w-full h-full rounded-lg"
@@ -33,6 +33,7 @@ function UserListCard({ list }) {
           alt="img"
         />
       </div>
+      <div className="flex justify-center mt-2"><span className="font-semibold">{list.title}</span></div>
       <div className="flex justify-center mt-3">
         {sold || list.isSold ? (
           <button
@@ -59,7 +60,7 @@ function UserListCard({ list }) {
         >
           Delete
         </button>
-        {sold || list.isSold ? "" : <EditProductForm />}
+        {sold || list.isSold ? "" : <EditProductForm list={list} setUpdate={setUpdate}/>}
       </div>
     </div>
   );

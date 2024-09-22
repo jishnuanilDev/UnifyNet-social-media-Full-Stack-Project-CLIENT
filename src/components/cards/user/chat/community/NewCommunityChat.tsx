@@ -99,7 +99,7 @@ setTimeout(() => {
       <div
         id="crypto-modal"
         aria-hidden="true"
-        className="ml-[76.5%] mt-12 overflow-y-auto overflow-x-hidden fixed  top-0 z-50 justify-center items-center w-[25%] md:inset-0 h-[calc(100%-1rem)] max-h-full "
+        className="md:ml-[76.5%] mt-12 overflow-y-auto overflow-x-hidden fixed  top-0 z-50 justify-center items-center md:w-[25%] md:inset-0 h-[calc(100%-1rem)] max-h-full "
       >
         <div className="relative p-4 w-full max-w-md max-h-full">
           <div className="relative bg-sidebarBlack rounded-lg shadow dark:bg-gray-700">

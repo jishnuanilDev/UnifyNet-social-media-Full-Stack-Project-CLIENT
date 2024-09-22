@@ -3,21 +3,23 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
 import { NextUIProvider } from "@nextui-org/react";
+import Spinner from "@/styled-components/loader/Spinner";
+
 const ProfileSidebar = dynamic(() => import("@/components/shared/user/ProfileSidebar"), {
   loading: () => <LeftSidebarSkeleton/>,
   ssr: false,
 });
 const CommunityChatCard = dynamic(() => import("@/components/cards/user/chat/community/CommunityChatCard"), {
-  loading: () => <h1>Chat card</h1>,
+  loading: () =>  <div className="flex justify-center items-center"><Spinner/></div>,
   ssr: false,
 });
 
 const NoCommunityLayout = dynamic(() => import("@/components/cards/user/chat/community/NoCommunityLayout"), {
-  loading: () => <h1>No community layout</h1>,
+  loading: () => <div className="flex justify-center items-center"><Spinner/></div>,
   ssr: false,
 });
 const CommunityUsers = dynamic(() => import("@/components/cards/user/chat/community/communityUsers"), {
-  loading: () => <h1>Community users</h1>,
+  loading: () => <div className="flex justify-center items-center"><Spinner/></div>,
   ssr: false,
 });
 

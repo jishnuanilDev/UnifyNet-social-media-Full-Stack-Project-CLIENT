@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BsCart2 } from "react-icons/bs";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import "@/styles/globals.css";
+import { useRouter } from "next/navigation";
 import {
   Modal,
   ModalContent,
@@ -15,6 +16,7 @@ import {
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import axiosInstance from "@/configs/axiosInstance";
+import Spinner from "@/styled-components/loader/Spinner";
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -23,6 +25,9 @@ const Toaster = dynamic(
 function ProductCardTailwind({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [update, setUpdate] = useState(false);
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const handleProductPage = () => {
     setUpdate(true);
   };
@@ -46,8 +51,14 @@ function ProductCardTailwind({ product }) {
       console.error("Error occured in adding wishlist client side", err);
     }
   };
+
+  const handleYourWishlist = () => {
+    setLoading(true);
+    router.push("/market-place/wishlist");
+  };
   return (
     <div>
+      {loading && <Spinner />}
       <div className="w-full max-w-sm bg-gradient-to-r from-purple-900/80 to-slate-900 rounded-lg shadow backdrop-blur-md cursor-pointer">
         <div
           className="w-full h-64 overflow-hidden rounded-t-lg"
@@ -66,7 +77,7 @@ function ProductCardTailwind({ product }) {
           >
             {product.title}
           </h5>
-          <h5 className="text-sm italic line-clamp-2 tracking-tight text-white mb-3">
+          <h5 className="text-sm italic line-clamp-1 tracking-tight text-white mb-3">
             {product.description}
           </h5>
 
@@ -74,12 +85,21 @@ function ProductCardTailwind({ product }) {
             <span className="text-2xl font-bold text-white">
               &#8377;{product.price}
             </span>
-            <span
-              onClick={() => handleWishList(product._id)}
-              className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Add to Wishlist
-            </span>
+            {product.isWishlisted ? (
+              <span
+                onClick={handleYourWishlist}
+                className="text-white bg-gradient-to-r from-yellow-200 via-purple-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                In Wishlist
+              </span>
+            ) : (
+              <span
+                onClick={() => handleWishList(product._id)}
+                className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Add to Wishlist
+              </span>
+            )}
           </div>
         </div>
       </div>

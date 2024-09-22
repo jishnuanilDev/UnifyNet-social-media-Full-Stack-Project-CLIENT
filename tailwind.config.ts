@@ -67,6 +67,7 @@ const config: Config = {
         lightBlack:'#2f2f30',
         midBlack:'#141413',  
         dashboardCard:'#3a303d',
+        chatCardBlack: '#0d0c0c',
       }
     },
     transform: ['hover', 'focus'],

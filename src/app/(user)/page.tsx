@@ -204,9 +204,9 @@ function Home() {
             </div>
           </div>
 
-          <main className="ml-14 grid grid-cols-3 h-screen scrollbar-thin scrollbar-thumb-fuchsia-950 scrollbar-track-neutral-800 overflow-x-hidden">
+          <main className="ml-14 grid grid-cols-3 h-screen md:scrollbar-thin md:scrollbar-thumb-fuchsia-950 md:scrollbar-track-neutral-800 overflow-x-hidden ">
             {/* Post Content */}
-            <div className="col-span-2 pr-4 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-neutral-800">
+            <div className="col-span-2 pr-4 md:overflow-y-auto md:scrollbar-thin md:scrollbar-thumb-white/10 md:scrollbar-track-neutral-800 scrollbar-hide">
               {posts && posts.length >= 1 ? (
                 posts.map((post, index) => (
                   <PostBox
@@ -234,7 +234,7 @@ function Home() {
             </div>
 
             {/* SuggestionBox */}
-            <div className="col-span-1 flex justify-end mr-3 overflow-y-hidden">
+            <div className="col-span-1 md:flex justify-end mr-3 overflow-y-hidden  hidden">
               {user && (
                 <SuggestionBox
                   post={undefined}

@@ -40,7 +40,7 @@ function Conversation() {
   // const [chatBox, setChatBox] = useState(false);
   const [chat, setChat] = useState<IChat | null>(null);
   const [user,setUser] = useState<IUser | null>(null);
-
+  const [update,setUpdate] = useState(false);
   const router = useRouter();
   useEffect(() => {
     const fetchProfile = async () => {
@@ -70,9 +70,9 @@ function Conversation() {
     <NextUIProvider>
     <div className="flex">
       <ProfileSidebar />
-      {chat?(<ChatCard chat={chat} />):(<NoChatLayout />) }
+      {chat?(<ChatCard setUpdate={setUpdate} chat={chat} />):(<NoChatLayout />) }
 
-      <ChatUsers setChat={setChat} user={user}  />
+      <ChatUsers update={update} setChat={setChat} user={user}  />
     </div>
     </NextUIProvider>
   );

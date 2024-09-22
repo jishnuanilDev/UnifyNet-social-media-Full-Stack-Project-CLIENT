@@ -42,8 +42,9 @@ interface OnlineUser {
 interface IsetChatProps {
   setChat: React.Dispatch<React.SetStateAction<IChat | null>>;
   user: IUser | null;
+  update:boolean;
 }
-const ChatUsers: React.FC<IsetChatProps> = ({ setChat }) => {
+const ChatUsers: React.FC<IsetChatProps> = ({ setChat,update }) => {
   const [searchCard, setSearchCard] = useState(false);
   const [chats, setChats] = useState<IChat[]>([]);
   const [currentUserId, setCurrentUserId] = useState("");
@@ -72,13 +73,13 @@ const ChatUsers: React.FC<IsetChatProps> = ({ setChat }) => {
     };
 
     fetchChats();
-  }, [searchCard,router]);
+  }, [searchCard,router,update]);
   return (
     <div >
-      <section className="md:w-[350px] bg-black h-screen flex flex-col">
+      <section className="w-[350px] bg-sidebarBlack h-screen flex flex-col">
         <div className="flex justify-center mt-3">
           <input
-            className="bg-sidebarBlack rounded-full w-[90%] border-none text-white"
+            className="bg-midBlack rounded-full w-[90%] border-none text-white"
             placeholder="Search..."
             type="text"
             name=""

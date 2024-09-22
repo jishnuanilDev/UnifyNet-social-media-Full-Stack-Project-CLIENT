@@ -4,7 +4,7 @@ import axiosInstance from "@/configs/axiosInstance";
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
-import Image from 'next/image';
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Area } from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
@@ -18,7 +18,6 @@ import PublishButton from "@/components/buttons/PublishButton";
 import "@/styles/globals.css";
 import { Button as nextButton } from "@nextui-org/react";
 import LinearLoading from "@/styled-components/LinearLoading";
-
 import "flowbite";
 import axios from "axios";
 interface postStepProps {
@@ -38,7 +37,7 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
   const [croppedImageUrl, setCroppedImageUrl] = useState("");
   const [postImage, setPostImage] = useState("");
   const [disable, setDisable] = useState(false);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
   const onCropComplete = useCallback(
@@ -57,7 +56,7 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
       reader.onload = () => {
         setImageSrc(reader.result as string);
       };
-      setFile(seletectedFile)
+      setFile(seletectedFile);
     }
   };
 
@@ -84,13 +83,13 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
     setCaption("");
   };
 
-  const handleGenerateCaption = async()=>{
+  const handleGenerateCaption = async () => {
     setLoading(true);
-    try{
+    try {
       const userToken = localStorage.getItem("userToken");
       const response = await axiosInstance.post(
         "/generate-caption",
-        {postImage},
+        { postImage },
 
         {
           headers: {
@@ -98,17 +97,16 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
           },
         }
       );
-     
-      
-      if(response){
+
+      if (response) {
         toast.success("caption generated");
         setCaption(response.data.caption);
         setLoading(false);
       }
-    }catch(err){
+    } catch (err) {
       console.error("Error occurred in generate caption in client", err);
     }
-  }
+  };
 
   const newPostSubmit = async () => {
     try {
@@ -147,7 +145,7 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
   };
   if (postStep == 1) {
     return (
-      <div className="w-[500px] relative ">
+      <div className="md:w-[500px] w-[100px] relative ">
         <div className="fixed top-0 left-0 w-full h-full bg-black/25 bg-opacity-50 backdrop-blur-sm z-40"></div>
 
         <div
@@ -157,16 +155,21 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
           className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
         >
           <section className="flex justify-center">
-            <div className="bg-sidebarBlack w-full h-[600px] flex flex-col items-center  rounded-2xl ">
+            <div className="bg-sidebarBlack md:w-full h-[600px] w-[200px] flex flex-col items-center  rounded-2xl ">
               <Link href={pathname}>
                 {" "}
-                <div className="ml-[700px] mt-4 mr-10" onClick={handleAllClose}>
+                <div
+                  className="ml-[700px]   mt-4 mr-10"
+                  onClick={handleAllClose}
+                >
                   <IoMdClose style={{ fontSize: "30px" }} />
                 </div>
               </Link>
+              
               <div className="flex justify-center items-center w-[500px] bg-gradient-to-r from-purple-900/15 to-fuchsia-600/15 h-8 rounded-3xl">
                 <span className="font-extrabold italic">Create New Post</span>
               </div>
+              
               <Toaster />
               <div>
                 {imageSrc && !postImage ? (
@@ -203,16 +206,14 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
                       <div className="w-[500px] h-auto">
                         {croppedImageUrl && (
                           <img
-                         
                             src={croppedImageUrl}
                             alt="Cropped"
                             className="rounded-md w-full max-w-full"
                           />
                         )}
                       </div>
-                     {/* <div className="mt-10"> <GeminiButton/></div> */}
+                      {/* <div className="mt-10"> <GeminiButton/></div> */}
                       <div className="flex mt-2 w-[500px]">
-                    
                         <input
                           placeholder="Add caption"
                           className="bg-lightBlack w-full h-9 rounded-full p-3 text-[12px]"
@@ -220,20 +221,21 @@ const NewPostModal: React.FC<postStepProps> = ({ postStep, setPostStep }) => {
                           onChange={(e) => setCaption(e.target.value)}
                           value={caption}
                         />
-                     
                       </div>
                       {loading && <LinearLoading />}
-                     
-                      <div onClick={handleGenerateCaption} className="mt-2"><GeminiButton/></div>
+
+                      <div onClick={handleGenerateCaption} className="mt-2">
+                        <GeminiButton />
+                      </div>
                       <div className="mt-5 mb-3 w-full">
                         {disable ? (
                           <LinearLoading />
                         ) : (
-                  <>
-                      
-                        <div className="w-full"  onClick={newPostSubmit}><PublishButton/></div>
-                    
-                  </>
+                          <>
+                            <div className="w-full" onClick={newPostSubmit}>
+                              <PublishButton />
+                            </div>
+                          </>
                         )}
                       </div>
                     </div>

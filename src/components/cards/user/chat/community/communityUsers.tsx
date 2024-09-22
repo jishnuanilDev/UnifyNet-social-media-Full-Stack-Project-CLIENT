@@ -94,10 +94,10 @@ const [communities, setCommunities] = useState<ICommunity[]>([]);
   }
   return (
     <div>
-      <section className="w-[350px] bg-black h-screen flex flex-col">
+      <section className="w-[350px] bg-sidebarBlack h-screen flex flex-col">
         <div className="flex justify-center mt-3">
           <input
-            className="bg-sidebarBlack rounded-full w-[90%] border-none text-white"
+            className="bg-midBlack rounded-full w-[90%] border-none text-white"
             placeholder="Search..."
             type="text"
             name=""

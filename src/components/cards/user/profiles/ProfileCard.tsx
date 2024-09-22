@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "@/configs/axiosInstance";
 import { useBreakpoint } from "@/hooks/TailwindResponsive";
 import KycForm from "@/components/forms/user/Kycform";
+import Spinner from "@/styled-components/loader/Spinner";
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -72,6 +73,8 @@ const ProfileCard: React.FC = () => {
   const [cardOpen, setCardOpen] = React.useState(false);
   const [trigger,setTrigger] = useState(true);
   const [kycOpen,setKycOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const breakpoint = useBreakpoint();
   const router = useRouter();
   useEffect(() => {
@@ -118,9 +121,15 @@ setTrigger(!true)
       console.log('Error occured in client side for cancel premium',err);
     }
   }
+
+  const handleEditProfile = ()=>{
+    setLoading(true);
+    router.push("/profile/edit-profile")
+  }
   return (
     <>
           <Toaster />
+         {loading? <Spinner/>:null} 
       <div className="bg-gradient-to-b from-fuchsia-800/20 to-fuchsia-950/0 md:h-80 h-44  flex md:mr-10 mr-3 md:mt-7 mt-4 rounded-xl  ">
         <div className="h-full">
           <div className="flex justify-center md:mt-14 mt-6 md:ml-14 ml-2">
@@ -157,7 +166,7 @@ setTrigger(!true)
       <div className="flex gap-2 mt-3 md:mt-0 ">
               <span
                 className=" md:text-sm text-[12px] h-5 md:ml-10 "
-                onClick={() => router.push("/profile/edit-profile")}
+                onClick={handleEditProfile}
               >
                 <button className="bg-purple-900 md:px-4 px-2 md:py-1 rounded-full">
                   Edit Profile

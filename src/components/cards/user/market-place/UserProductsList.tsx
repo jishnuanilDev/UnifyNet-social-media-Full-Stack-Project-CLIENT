@@ -91,7 +91,7 @@ const router = useRouter();
         {userLists.length >= 1 ? (
           <div className=" grid grid-cols-1 md:grid-cols-4 gap-3 mr-2">
             {userLists.map((list, index) => (
-              <UserListCard key={index} list={list}/>
+              <UserListCard key={index} list={list} setUpdate={setUpdate}/>
             ))}
           </div>
         ) : (

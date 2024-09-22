@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import axiosInstance from "@/configs/axiosInstance";
+import Spinner from "@/styled-components/loader/Spinner";
+
+
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -26,6 +29,7 @@ export default function EditProfile() {
   const [profilePic, setProfilePic] = useState<any | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   // const [user,setUser] = useState<User | null >(null);
 
   const router = useRouter();
@@ -81,7 +85,7 @@ export default function EditProfile() {
     const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
 
     const selectedFile = event.target.files && event.target.files[0];
-
+    setFile(selectedFile);
     if (selectedFile) {
       if (selectedFile.size > maxSizeInBytes) {
         alert("File is too large. Maximum size is 5MB.");
@@ -101,13 +105,22 @@ export default function EditProfile() {
       }
     }
   };
+  const handleDeleteImg = ()=>{
+    setImage('');
+  }
 
+  const handleCancel = ()=>{
+setLoading(true);
+router.replace("/profile")
+  }
   const handleSubmit = async () => {
     try {
       if (!image) {
-        alert("Please select a profile picture.");
+        toast.error('Please select a profile picture.')
         return;
       }
+      setLoading(true);
+
 
       const formData = new FormData();
 
@@ -145,15 +158,16 @@ export default function EditProfile() {
   return (
     <>
       <Toaster />
+      {loading? <Spinner/>:null}
       <div className="flex justify-center md:items-center h-screen">
         <main className="bg-sidebarBlack md:w-[800px] w-80  md:mt-10 rounded-xl">
           <header className="flex justify-center md:mt-14 mt-4">
             <div className="flex justify-center md:mt-14">
               <div className="relative w-28 h-28">
                 <div className="w-28 h-28 bg-white rounded-full overflow-hidden">
-                  {profilePic ? (
+                  {profilePic || image ? (
                     <img
-                      src={profilePic}
+                      src={profilePic?profilePic:image?image:''}
                       alt="Profile"
                       className="w-full h-full object-cover"
                     />
@@ -173,7 +187,7 @@ export default function EditProfile() {
             </div>
           </header>
           <div className="mt-5 flex justify-center gap-8 mb-8">
-            <span className="font-semibold cursor-pointer text-sm hover:bg-red-600 bg-red-800 px-3 rounded-lg transition ease-in-out">
+            <span className="font-semibold cursor-pointer text-sm hover:bg-red-600 bg-red-800 px-3 rounded-lg transition ease-in-out" onClick={handleDeleteImg}>
               Delete
             </span>
             {/* <span onChange={handleFileChange}  className="font-semibold cursor-pointer text-sm hover:bg-purple-600 bg-purple-800 px-3 rounded-lg transition ease-in-out">
@@ -228,7 +242,7 @@ export default function EditProfile() {
           </div>
           <div className="mt-12 flex justify-center gap-10 mb-10">
             <button
-              onClick={() => router.replace("/profile")}
+              onClick={handleCancel}
               className="bg-gradient-to-r from-red-600/25 to-red-600 px-4 rounded-full"
             >
               Cancel

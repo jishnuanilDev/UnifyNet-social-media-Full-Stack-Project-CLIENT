@@ -312,7 +312,7 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
             </span>
 
             <span
-              className="text-sm font-sans ml-[150px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
+              className="text-sm font-sans ml-[170px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               <HiDotsVertical style={{ fontSize: "18px" }} />
@@ -391,7 +391,7 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
             </div>
             <div className="flex md:gap-2  mt-3.5 md:ml-5 ml-4 cursor-pointer">
               <span className="text-myViolet/80">
-                <RiShareForwardFill style={{ fontSize: "26px" }} />
+                {/* <RiShareForwardFill style={{ fontSize: "26px" }} /> */}
               </span>
             </div>
 

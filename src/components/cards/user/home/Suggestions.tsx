@@ -68,7 +68,7 @@ const SuggestionBox: React.FC<PostProps> = () => {
     const fetchUsers = async () => {
       try {
         const userToken = localStorage.getItem('userToken');
-        const response = await axiosInstance.get("getUsers",{
+        const response = await axiosInstance.get("/getUsers",{
             headers:{
                 Authorization:userToken
             }
@@ -105,7 +105,7 @@ const SuggestionBox: React.FC<PostProps> = () => {
               <div className="flex items-center gap-8">
                 <div className="w-12 h-12 rounded-full bg-white">
                   <img
-                    className="w-full h-full"
+                    className="w-full h-full object-cover rounded-full"
                     src={user.profilePic}
                     alt="img"
                   />

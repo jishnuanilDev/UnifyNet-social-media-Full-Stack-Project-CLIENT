@@ -153,7 +153,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  "  onClick={handleDiscover}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1 "  onClick={handleDiscover}>
             <span className="">
               <MdExplore style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -162,7 +162,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleStep}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2 py-2 px-1 " onClick={handleStep}>
             <span className="">
               <AiFillPlusCircle style={{ fontSize: "26px", color: "d55adb" }} />
             </span>
@@ -172,7 +172,7 @@ const LeftSidebar: React.FC<setPoststepProps> = ({ setPostStep,postStep }) => {
             </span>
           </div>
 
-          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1  " onClick={handleChats}>
+          <div className="mt-6  flex cursor-pointer hover:bg-fuchsia-950/55 rounded-lg mr-2  py-2 px-1 " onClick={handleChats}>
             <span className="">
               <PiChatsCircleFill
                 style={{ fontSize: "26px", color: "d55adb" }}
