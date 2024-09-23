@@ -90,11 +90,11 @@ const FriendProfilePosts: React.FC<FriendProps> = ({ user }) => {
               update={update}
               setUpdate={setUpdate}
             />
-            <img
+            {/* <img
               className="w-full h-full rounded-lg object-cover"
               src={post.image.url}
               alt="img"
-            />
+            /> */}
           </div>
         ))}
       </div>

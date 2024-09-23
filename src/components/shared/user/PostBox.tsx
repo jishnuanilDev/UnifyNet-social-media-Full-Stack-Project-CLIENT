@@ -395,7 +395,7 @@ const PostBox: React.FC<PostProps> = ({ post, user, update, setUpdate }) => {
               </span>
             </div>
 
-            <div className="flex-1 md:gap-2 md:mt-5 mt-4 md:ml-[328px] ml-[170px] ">
+            <div className="flex-1 md:gap-2 md:mt-5 mt-4 md:ml-[360px] ml-[195px] ">
               <span className="text-myViolet/80 cursor-pointer">
                 {saved ? (
                   <BsBookmarkCheckFill

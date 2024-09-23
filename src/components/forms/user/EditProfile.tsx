@@ -115,10 +115,6 @@ router.replace("/profile")
   }
   const handleSubmit = async () => {
     try {
-      if (!image) {
-        toast.error('Please select a profile picture.')
-        return;
-      }
       setLoading(true);
 
 

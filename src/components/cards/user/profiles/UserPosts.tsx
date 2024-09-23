@@ -167,11 +167,11 @@ const UserPosts: React.FC = () => {
                   update={update}
                   setUpdate={setUpdate}
                 />
-                <Image
+                {/* <img
                   className="w-full h-full rounded-lg object-cover"
                   src={savedPost.image.url}
                   alt="img"
-                />
+                /> */}
               </div>
             ))}
           </div>

@@ -113,11 +113,11 @@ const CommentModal: React.FC<ICommentModalProps> = ({
                   <div key={index} className="mt-10 ml-5">
                     <div className=" flex ">
                       <div className="bg-white/85 w-8 h-8 rounded-full mr-7">
-                        {comment.user.profilePic ? (
+                        {comment.user?.profilePic ? (
                           <Avatar
                             style={{ height: "25px", width: "25px" }}
                             alt="Remy Sharp"
-                            src={comment.user.profilePic}
+                            src={comment.user?.profilePic}
                           />
                         ) : (
                           <Avatar
@@ -128,7 +128,7 @@ const CommentModal: React.FC<ICommentModalProps> = ({
                         )}
                       </div>
                       <div className="text-[12px] font-semibold">
-                        {comment.user.username}
+                        {comment.user?.username}
                       </div>
                       <div className="text-[13px] max-w-96 flex-grow font-sans  ml-4  ">
                         {comment.comment}

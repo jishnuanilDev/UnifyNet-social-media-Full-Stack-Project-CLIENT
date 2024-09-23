@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import EditProductForm from "@/components/forms/user/EditProductForm";
 import axiosInstance from "@/configs/axiosInstance";
 import Image from 'next/image';
+import Spinner from "@/styled-components/loader/Spinner";
+import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
+  
+
 function UserListCard({ list,setUpdate }) {
   const [sold, setSold] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleSold = async () => {
     try {
       const listId = list._id;
@@ -24,8 +34,33 @@ function UserListCard({ list,setUpdate }) {
       console.error("Error occured in handle sold client side", err);
     }
   };
+
+  const handleDelete = async()=>{
+    setLoading(true);
+    try {
+      const listId = list._id;
+      const userToken = localStorage.getItem("userToken");
+      const result = await axiosInstance.patch(
+        "/delete-your-list",
+        { listId },
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+      if (result.data.success) {
+        toast.success('Product deleted');
+        setUpdate(true);
+      }
+    } catch (err) {
+      console.error("Error occured in handle sold client side", err);
+    }
+  }
   return (
     <div className="w-70 h-96 bg-white/5 rounded-xl  ">
+        {loading && <Spinner />}
+        <Toaster />
       <div className="bg-black h-44 w-64 rounded-lg mt-4 mx-auto">
         <img
           className="object-cover w-full h-full rounded-lg"
@@ -55,6 +90,7 @@ function UserListCard({ list,setUpdate }) {
       </div>
       <div className="flex gap-3 justify-center mt-4 ">
         <button
+        onClick={handleDelete}
           type="button"
           className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         >

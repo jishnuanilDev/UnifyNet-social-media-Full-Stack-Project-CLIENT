@@ -90,7 +90,7 @@ const RepliesModal: React.FC<IRepliesModalProps> = ({
   return (
     <>
       <span  onClick={onOpen} className="text-[10px] text-white/50 cursor-pointer">
-        View replies( {comment.replies.length} )
+        View replies( {comment.replies?.length} )
       </span>
       <Modal
         className="bg-sidebarBlack "
@@ -160,11 +160,11 @@ const RepliesModal: React.FC<IRepliesModalProps> = ({
                         <div key={index} className="mt-10 ml-5">
                           <div className=" flex ">
                             <div className="bg-white/85 w-8 h-8 rounded-full mr-7">
-                            {reply.user.profilePic ? (
+                            {reply.user?.profilePic ? (
                 <Avatar
                   style={{ height: "25px", width: "25px" }}
                   alt="Remy Sharp"
-                  src={reply.user.profilePic}
+                  src={reply.user?.profilePic}
                 />
               ) : (
                 <Avatar
@@ -175,7 +175,7 @@ const RepliesModal: React.FC<IRepliesModalProps> = ({
               )}
                             </div>
                             <div className="text-[12px] font-semibold">
-                              {reply.user.username}
+                              {reply.user?.username}
                             </div>
                             <div className="text-[13px] max-w-96 flex-grow font-sans  ml-4  ">
                               {reply.commentReply}

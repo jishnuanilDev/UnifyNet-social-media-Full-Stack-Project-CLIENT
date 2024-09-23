@@ -22,15 +22,14 @@ const Toaster = dynamic(
   { ssr: false }
 );
 
-function ProductCardTailwind({ product }) {
+function ProductCardTailwind({ product ,setUpdate}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [update, setUpdate] = useState(false);
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const handleProductPage = () => {
-    setUpdate(true);
-  };
+  // const handleProductPage = () => {
+  //   setUpdate(true);
+  // };
 
   const handleWishList = async (productId: string) => {
     try {
@@ -46,6 +45,7 @@ function ProductCardTailwind({ product }) {
       );
       if (result) {
         toast.success(result.data.message);
+        setUpdate((prev)=>!prev)
       }
     } catch (err) {
       console.error("Error occured in adding wishlist client side", err);

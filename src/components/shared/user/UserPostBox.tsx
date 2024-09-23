@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-
+import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
+import { BsBookmark } from "react-icons/bs";
+import { BsBookmarkCheckFill } from "react-icons/bs"
 import { FaRegComment } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
@@ -124,6 +127,34 @@ const UserPostBox: React.FC<PostProps> = ({
       console.error("Error occured in add like in client", err);
     }
   };
+
+  const handleDeletePost = async () => {
+    try {
+      const userToken = localStorage.getItem("userToken");
+      if (!userToken) {
+        toast.error("Sign in Required");
+        return;
+      }
+      const postId = userPost._id;
+      const response = await axiosInstance.post(
+        "/delete-post",
+        {
+          postId,
+        },
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+      if (response) {
+        setUpdate(!update);
+        toast.success(response.data.message);
+      }
+    } catch (err) {
+      console.error("Error occured in delete post in client", err);
+    }
+  };
   const removeLike = () => {
     try {
       // setLiked(!liked);
@@ -180,7 +211,7 @@ const UserPostBox: React.FC<PostProps> = ({
   return (
     <div>
       <Toaster />
-      <section className="container  bg-postBox md:w-[500px] w-[280px] md:h-[650px] flex mt-[30px] rounded-lg  ml-[20px]">
+      <section className="container  bg-midBlack md:w-[500px] w-[280px] md:h-[650px] flex mt-[30px] rounded-lg  ml-[20px]">
         <div className="container">
           <CommentModal
             commentModal={commentModal}
@@ -201,7 +232,7 @@ const UserPostBox: React.FC<PostProps> = ({
             </span>
 
             <span
-              className="text-sm font-sans ml-[160px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
+              className="text-sm font-sans ml-[170px] md:ml-auto mr-2 md:mt-1 mt-0 relative cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               <HiDotsVertical style={{ fontSize: "18px" }} />
@@ -219,22 +250,18 @@ const UserPostBox: React.FC<PostProps> = ({
                   </div>
                   <div
                     className="block px-4 py-2 text-sm hover:scale-110 cursor-pointer transition duration-200 hover:text-fuchsia-400  rounded-xl"
+                    onClick={handleDeletePost}
+                  >
+                    Delete
+                  </div>
+                  <div
+                    className="block px-4 py-2 text-sm hover:scale-110 hover:text-red-600 cursor-pointer transition duration-200  rounded-xl"
                     onClick={() => {
                       setIsOpen(false); /* Add additional options here */
                     }}
                   >
-                    Open post
+                    Close
                   </div>
-               <Link href='/profile'>
-                      <div
-                        className="block px-4 py-2 text-sm hover:scale-110 hover:text-red-600 cursor-pointer transition duration-200  rounded-xl"
-                        onClick={() => {
-                          setUpdate(false); /* Add additional options here */
-                        }}
-                      >
-                        Close
-                      </div>
-               </Link>
                 </div>
               )}
             </span>
@@ -263,14 +290,14 @@ const UserPostBox: React.FC<PostProps> = ({
                   className="text-myViolet/80 text-xl cursor-pointer"
                   onClick={removeLike}
                 >
-                  <BiSolidLike style={{ fontSize: "22px" }} />
+                  <IoMdHeart style={{ fontSize: "22px" }} />
                 </span>
               ) : (
                 <span
                   className="text-myViolet/80 text-xl cursor-pointer"
                   onClick={submitLike}
                 >
-                  <BiLike style={{ fontSize: "22px" }} />
+                  <IoMdHeartEmpty style={{ fontSize: "22px" }} />
                 </span>
               )}
             </div>
@@ -284,15 +311,11 @@ const UserPostBox: React.FC<PostProps> = ({
             </div>
             <div className="flex md:gap-2  mt-3.5 md:ml-5 ml-4 cursor-pointer">
               <span className="text-myViolet/80">
-                <RiShareForwardFill style={{ fontSize: "26px" }} />
+                {/* <RiShareForwardFill style={{ fontSize: "26px" }} /> */}
               </span>
             </div>
 
-            <div className="flex-1 md:gap-2 md:mt-5 mt-4 md:ml-[328px] ml-[135px] cursor-pointer">
-              <span className="text-myViolet/80">
-                <BsSave2 style={{ fontSize: "22px" }} />
-              </span>
-            </div>
+ 
           </div>
           <div className="ml-5 mt-1 md:text-[13px] text-[10px]  font-sans text-white/50">
             <span className="">{likes} Likes</span>

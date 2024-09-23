@@ -24,6 +24,7 @@ interface IUser {
   bio: string;
   email: string;
   isPremium: boolean;
+  profilePic:string;
 }
 
 interface Ipost {
@@ -100,7 +101,7 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
         setAccept(true);
       }
     }
-  }, [user, friend._id, friend.followers]);
+  }, [user, friend, friend?.followers]);
 
   const handleFollow = async () => {
     try {
@@ -180,9 +181,9 @@ const FriendProfileCard: React.FC<UserProps> = ({ friend, user }) => {
           <div className="flex justify-center md:mt-14 mt-6 md:ml-14 ml-6">
             <div className="relative w-28 h-28">
               <div className="md:w-28 md:h-28 w-20 h-20 bg-white rounded-full overflow-hidden">
-                {friend.profilePic ? (
+                {friend?.profilePic ? (
                   <img
-                    src={friend.profilePic}
+                    src={friend?.profilePic}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />

@@ -49,14 +49,14 @@ function UserWishlistCard({ list ,setUpdate}) {
   return (
 <div>
       <div className="w-70 h-80 bg-white/5 rounded-xl  ">
-        <div className="bg-black h-44 w-64 rounded-lg mt-4 mx-auto cursor-pointer" onClick={onOpen}>
+        <div className="bg-black h-44 w-64 rounded-lg mt-4 mx-auto cursor-pointer " onClick={onOpen}>
           <img
-            className="object-cover w-full h-full rounded-lg"
+            className="object-cover w-full h-full rounded-lg mt-2"
             src={list.images[0]}
             alt="img"
           />
         </div>
-  
+        <div className="flex justify-center mt-2"><span className="font-semibold">{list.title}</span></div>
         <div className="flex gap-3 justify-center mt-4 ">
           <button
           onClick={productRemoveWishlist}

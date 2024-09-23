@@ -126,7 +126,7 @@ const MarketPlaceCard: React.FC = () => {
         {products.length >= 1 ? (
           <div className=" grid grid-cols-1 md:grid-cols-4 gap-3 mr-2">
             {products.map((product, index) => (
-              <ProductCardTailwind key={index} product={product} />
+              <ProductCardTailwind key={index} product={product} setUpdate={setUpdate} />
             ))}
           </div>
         ) : (

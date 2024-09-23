@@ -13,6 +13,9 @@ import {
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import axiosInstance from "@/configs/axiosInstance";
+import Spinner from "@/styled-components/loader/Spinner";
+
+
 const Toaster = dynamic(
   () => import("react-hot-toast").then((mod) => mod.Toaster),
   { ssr: false }
@@ -33,6 +36,7 @@ interface IImage {
 }
 export default function NewProductForm({ setUpdate }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<Iproduct>({
     title: "",
     price: "",
@@ -131,6 +135,7 @@ export default function NewProductForm({ setUpdate }) {
 
   const handleNewSell = async (onClose) => {
     try {
+   
       if (!validate()) return;
       const userToken = localStorage.getItem("userToken");
       const response = await axiosInstance.post(
@@ -180,6 +185,7 @@ export default function NewProductForm({ setUpdate }) {
           Sell +
         </span>
       </button>
+      {loading? <Spinner/>:null}
       <Toaster />
       <Modal
         className="bg-midBlack "

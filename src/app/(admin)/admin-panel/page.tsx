@@ -3,19 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "flowbite-react";
 import dynamic from "next/dynamic";
 import LeftSidebarSkeleton from "@/styled-components/skeletons/LeftSidebarSkeleton";
+import Spinner from "@/styled-components/loader/Spinner";
+
 import TopBarSkeleton from "@/styled-components/skeletons/TopBarSkeleton";
 const AnalyticsCard = dynamic(
   () => import("@/components/cards/admin/AnalyticsCard"),
   {
-    loading: () => <h1>Hey loading cards</h1>, // Optional loading component
+    loading: () => <div className="flex justify-center items-center"><Spinner/></div>, // Optional loading component
   }
 );
 const MyBarChart = dynamic(() => import("@/components/charts/BarCharts"), {
-  loading: () => <h1>Hey loading charts..</h1>, // Optional loading component
+  loading: () => <div className="flex justify-center items-center"><Spinner/></div>, // Optional loading component
 });
 
 const MyLineChart = dynamic(() => import("@/components/charts/LineChart"), {
-  loading: () => <h1>Hey loading charts..</h1>, // Optional loading component
+  loading: () => <div className="flex justify-center items-center"><Spinner/></div>, // Optional loading component
 });
 const AdminLeftSidebar = dynamic(
   () => import("@/components/shared/Admin/LeftSidebarAdmin"),
