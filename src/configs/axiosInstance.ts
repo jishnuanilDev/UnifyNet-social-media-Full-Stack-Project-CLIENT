@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
     // You can add any other default headers you want here
   },
 });
-
+// process.env.NEXT_PUBLIC_API_BASE_URL
 // Adding an interceptor to automatically include the token in every request
 // axiosInstance.interceptors.request.use(
 //   (config) => {

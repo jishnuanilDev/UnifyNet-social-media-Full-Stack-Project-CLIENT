@@ -10,6 +10,7 @@ const Toaster = dynamic(
 );
 import { BsBookmark } from "react-icons/bs";
 import { BsBookmarkCheckFill } from "react-icons/bs";
+import Link from "next/link";
 
 interface IUser {
   _id: string;
@@ -110,12 +111,14 @@ const SuggestionBox: React.FC<PostProps> = () => {
                     alt="img"
                   />
                 </div>
-                <div>
-                  <span className="text-md font-semibold">{user.username}</span>
-                  <div className="text-xs font-light text-white/70">
-                    {user.fullname}
+       <Link href={`/user-profile/${user.username}`}>
+                  <div>
+                    <span className="text-md font-semibold">{user.username}</span>
+                    <div className="text-xs font-light text-white/70">
+                      {user.fullname}
+                    </div>
                   </div>
-                </div>
+       </Link>
               </div>
               <button className="text-sm font-semibold text-blue-500 cursor-pointer">
                 Follow

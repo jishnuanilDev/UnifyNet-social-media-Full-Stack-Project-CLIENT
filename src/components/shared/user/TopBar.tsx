@@ -110,6 +110,7 @@ const Topbar: React.FC<ITopBarProps> = ({ user }) => {
 
   useEffect(() => {
     const notificationSocketUrl = process.env.NEXT_PUBLIC_API_SOCKET_URL_NOTIFICATION
+    console.log('notifiy today',notificationSocketUrl)
     socket.current = io(notificationSocketUrl);
     if (user) {
       socket.current.emit("addUser", user._id);
