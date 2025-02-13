@@ -18,7 +18,7 @@ const Toaster = dynamic(
 interface Params {
   username: string;
 }
-const socketUrl: any = "https://unifynetserver.jisonline.site";
+const socketUrl: any = "https://unifynetserver.jishnuanil.site";
 // const socketUrl: any ='http://localhost:8000';
 // socket.current = io(socketUrl); socket.current = io(socketUrl,{ path: "/socket.io", // Ensure the correct path if you're using Nginx });
 
